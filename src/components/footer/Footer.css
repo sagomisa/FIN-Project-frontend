@@ -1,0 +1,96 @@
+.footerContainer{
+    background-color: #3A3D3F;
+}
+h2{
+    color: white;
+}
+ul > li > a{
+    color: white;
+    font-weight: 100;
+} 
+#mainFooter{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 10%;
+    color: white;
+}
+#column1, #column2, #column3 {
+    width: 25%;
+    
+    display: flex;
+    flex-direction: column;
+}
+#divider{
+    border-top: 1px solid #9D9D9D;
+}
+#copyright{
+    padding: 20px 10%;
+    color: #9D9D9D;
+    
+}
+#copyright p{
+    text-align: center;
+}
+#logo{
+    display: flex;
+}
+.footerContainer p{
+    color: rgb(164, 173, 184);
+    font-size: 14px;
+    text-align: justify;
+}
+#column1 div{
+    margin-bottom: 5px;
+}
+#logo img{
+    margin-right: 10px;
+}
+#column2 > ul > li{
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(164, 173, 184);
+}
+#column2 h2{
+    margin-bottom: 4px;
+}
+
+.contact{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.phone,
+.address{
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.phone a{
+    font-size: 14px;
+    color: rgb(164, 173, 184);
+}
+.phone i,
+.address i{
+    margin-right: 5px;
+    font-size: 20px;
+}
+.sm_icons{
+    display: flex;
+}
+.sm_icons i{
+    margin: 5px 10px 5px 0;
+    font-size: 30px;
+}
+@media screen and (max-width: 768px){
+    #mainFooter{
+        display: flex;
+        flex-direction: column;
+      
+    }
+    #column1, #column2, #column3 {
+        width: 100%;
+        margin-bottom: 5%;
+    }
+}
