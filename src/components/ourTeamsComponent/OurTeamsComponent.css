@@ -1,0 +1,46 @@
+#teams{
+    width: 100%;   
+}
+.teams-overlay{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    padding: 10%;
+    
+}
+.teams-overlay h1{
+    
+    text-align: center;
+      padding-bottom: 1%;
+      margin-bottom: 7%;
+      position: relative;
+
+}
+.teams-overlay h1::after{
+  content: "";
+  background: var(--color-secondary);
+  width: 100px;
+  height: 5px;
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);  
+}
+.teams-overlay p{
+  
+  font-size: 18px;
+  line-height: 3.8rem;
+  text-align: center;
+  
+}
+
+@media screen and (max-width: 768px) {
+    .teams-overlay p{
+      
+      font-size: 12px;
+      line-height: 3.8rem;
+      text-align: center;  
+  }
+  
+  }

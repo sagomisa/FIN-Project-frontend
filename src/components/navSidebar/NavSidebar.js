@@ -28,7 +28,7 @@ const NavSidebar = ({ isOpen, toggle }) => {
             <SidebarLink to="investment" onClick={toggle}>
               Our Investments
             </SidebarLink>
-            <SidebarLink to="team" onClick={toggle}>
+            <SidebarLink to="teams" onClick={toggle}>
               Our Team
             </SidebarLink>
             <SidebarLink to="contact" onClick={toggle}>
