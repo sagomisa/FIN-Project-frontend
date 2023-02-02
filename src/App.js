@@ -24,11 +24,17 @@ import Blogs from "./pages/blogs/Blogs";
 import TermsOfUse from "./pages/termsOfUse/TermsOfUse";
 import PrivacyPolicy from "./pages/privacyPolicy/PrivacyPolicy";
 import LayoutLogoNav from "./components/layoutLogoNav/LayoutLogoNav";
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+axios.defaults.withCredentials = true;
 
 function App() {
   return (
     <>
       <BrowserRouter>
+        <ToastContainer />
         <Routes>
           <Route
             path="/"
