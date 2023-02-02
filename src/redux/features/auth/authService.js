@@ -21,6 +21,12 @@ const logout = async (userData) => {
   return response.data.message;
 };
 
+//Get Login Status
+const getLoginStatus = async () => {
+  const response = await axios.get(API_URL + "loginStatus");
+  return response.data;
+};
+
 // Validate email
 export const validateEmail = (email) => {
   return email.match(
@@ -32,6 +38,7 @@ const authService = {
   register,
   login,
   logout,
+  getLoginStatus,
 };
 
 export default authService;

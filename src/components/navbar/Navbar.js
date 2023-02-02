@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaUserCircle } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { animateScroll as scroll } from "react-scroll";
 import {
@@ -12,11 +12,14 @@ import {
   NavBtn,
   NavBtnLink,
   NavLinkS,
+  NavbarGreeting,
+  NavDashboard,
 } from "./NavbarElements";
 import logo from "../../assets/logo.png";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout, RESET } from "../../redux/features/auth/authSlice";
+import { ShowOnLogin, ShowOnLogout } from "../protect/hiddenLink";
 
 const Navbar = ({ toggle }) => {
   const [scrollNav, setScrollNav] = useState(false);
@@ -124,15 +127,26 @@ const Navbar = ({ toggle }) => {
                   Contact us
                 </NavLinkS>
               </NavItem>
+              <ShowOnLogin>
+                <NavDashboard to="/dashboard">Go to Dashboard</NavDashboard>
+              </ShowOnLogin>
             </NavMenu>
-            <NavBtn>
-              <NavBtnLink to="/login">Login</NavBtnLink>
-            </NavBtn>
-            <NavBtn>
-              <NavBtnLink to="/logout" onClick={logoutUser}>
-                Logout
-              </NavBtnLink>
-            </NavBtn>
+            <NavbarGreeting>
+              <ShowOnLogin>
+                <FaUserCircle size={20} />
+                <p className="--color-dark">Hi, Nisha </p>
+              </ShowOnLogin>
+            </NavbarGreeting>
+            <ShowOnLogout>
+              <NavBtn>
+                <NavBtnLink to="/login">Login</NavBtnLink>
+              </NavBtn>
+            </ShowOnLogout>
+            <ShowOnLogin>
+              <NavBtn>
+                <NavBtnLink onClick={logoutUser}>Logout</NavBtnLink>
+              </NavBtn>
+            </ShowOnLogin>
           </NavbarContainer>
         </Nav>
       </IconContext.Provider>

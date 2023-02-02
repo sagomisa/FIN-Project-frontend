@@ -31,6 +31,12 @@ export const NavbarContainer = styled.div`
   padding: 0 24px;
   max-width: 1100px;
 `;
+export const NavbarGreeting = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 3%;
+`;
 export const NavLogo = styled(LinkR)`
   color: red;
   justify-self: flex-start;
@@ -41,6 +47,15 @@ export const NavLogo = styled(LinkR)`
   margin-left: 24px;
   font-weight: bold;
   text-decoration: none;
+`;
+export const NavDashboard = styled(LinkR)`
+  color: var(--color-dark);
+  justify-self: flex-start;
+  cursor: pointer;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  text-decoration: underline;
 `;
 export const MobileIcon = styled.div`
   display: none;

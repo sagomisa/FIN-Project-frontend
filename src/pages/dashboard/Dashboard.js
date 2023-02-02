@@ -1,9 +1,10 @@
 import React from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
-
+import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
 import "./Dashboard.css";
 
-const dashboard = () => {
+const Dashboard = () => {
+  // useRedirectLoggedOutUser("/login");
   return (
     <div className="dashboard">
       <Sidebar />
@@ -14,4 +15,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;

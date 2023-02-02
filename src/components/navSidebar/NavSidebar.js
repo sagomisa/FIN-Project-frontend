@@ -1,4 +1,7 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout, RESET } from "../../redux/features/auth/authSlice";
 import {
   CloseIcon,
   Icon,
@@ -11,6 +14,14 @@ import {
 } from "./NavSidebarElements";
 
 const NavSidebar = ({ isOpen, toggle }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logoutUser = async () => {
+    dispatch(RESET());
+    await dispatch(logout());
+    navigate("/login");
+  };
   return (
     <>
       <SidebarContainer isOpen={isOpen} onClick={toggle}>
@@ -37,6 +48,7 @@ const NavSidebar = ({ isOpen, toggle }) => {
           </SidebarMenu>
           <SideBtnWrap>
             <SidebarRoute to="/login">Login</SidebarRoute>
+            <SidebarRoute onClick={logoutUser}>Logout</SidebarRoute>
           </SideBtnWrap>
         </SidebarWrapper>
       </SidebarContainer>
