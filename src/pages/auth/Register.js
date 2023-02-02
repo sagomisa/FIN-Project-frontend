@@ -7,6 +7,10 @@ import { BsCheck2All } from "react-icons/bs";
 import PasswordInput from "../../components/passwordInput/PasswordInput";
 import { toast } from "react-toastify";
 import { validateEmail } from "../../redux/features/auth/authService";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { register, RESET } from "../../redux/features/auth/authSlice";
+import Loader from "../../components/loader/Loader";
 
 const initialState = {
   name: "",
@@ -17,6 +21,13 @@ const initialState = {
 const Register = () => {
   const [formData, setFormData] = useState(initialState);
   const { name, email, password, password2 } = formData;
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { isLoading, isLoggedIn, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
 
   const [upperCase, setUpperCase] = useState(false);
   const [num, setNum] = useState(false);
@@ -67,7 +78,8 @@ const Register = () => {
       setPwLength(false);
     }
   }, [password]);
-  const registerUser = (e) => {
+
+  const registerUser = async (e) => {
     e.preventDefault();
     if (!name || !email || !password) {
       return toast.error("All fields are required");
@@ -88,9 +100,20 @@ const Register = () => {
       password,
     };
     console.log(userData);
+    await dispatch(register(userData));
   };
+
+  useEffect(() => {
+    if (isSuccess && isLoggedIn) {
+      navigate("/dashboard");
+    }
+
+    dispatch(RESET());
+  }, [isLoggedIn, isSuccess, dispatch, navigate]);
+
   return (
     <div className={`container ${styles.auth}`}>
+      {isLoading && <Loader />}
       <Card>
         <form onSubmit={registerUser} className={styles.form}>
           <Box
