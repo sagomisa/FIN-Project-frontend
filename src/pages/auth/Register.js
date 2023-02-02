@@ -5,6 +5,8 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { FaTimes } from "react-icons/fa";
 import { BsCheck2All } from "react-icons/bs";
 import PasswordInput from "../../components/passwordInput/PasswordInput";
+import { toast } from "react-toastify";
+import { validateEmail } from "../../redux/features/auth/authService";
 
 const initialState = {
   name: "",
@@ -65,11 +67,32 @@ const Register = () => {
       setPwLength(false);
     }
   }, [password]);
-  const loginUser = () => {};
+  const registerUser = (e) => {
+    e.preventDefault();
+    if (!name || !email || !password) {
+      return toast.error("All fields are required");
+    }
+    if (password.length < 6) {
+      return toast.error("Password must be up to 6 characters");
+    }
+    if (!validateEmail(email)) {
+      return toast.error("Please enter a valid email");
+    }
+    if (password !== password2) {
+      return toast.error("Password do not match");
+    }
+
+    const userData = {
+      name,
+      email,
+      password,
+    };
+    console.log(userData);
+  };
   return (
     <div className={`container ${styles.auth}`}>
       <Card>
-        <form onSubmit={loginUser} className={styles.form}>
+        <form onSubmit={registerUser} className={styles.form}>
           <Box
             className="formBox"
             marginLeft="auto"
@@ -119,6 +142,11 @@ const Register = () => {
               value={password2}
               onChange={handleInputChange}
               placeholder="Confirm Password"
+              onPaste={(e) => {
+                e.preventDefault();
+                toast.error("Cannot paste into input field");
+                return false;
+              }}
             />
 
             <Card cardClass={styles.group}>
