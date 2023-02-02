@@ -89,3 +89,12 @@ export const SidebarRoute = styled(LinkR)`
     color: #010606;
   }
 `;
+export const SideDashboard = styled(LinkR)`
+  color: #fff;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  text-decoration: underline;
+`;

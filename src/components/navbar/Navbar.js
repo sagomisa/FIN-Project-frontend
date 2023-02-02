@@ -19,7 +19,11 @@ import logo from "../../assets/logo.png";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout, RESET } from "../../redux/features/auth/authSlice";
-import { ShowOnLogin, ShowOnLogout } from "../protect/hiddenLink";
+import {
+  ShowDashboard,
+  ShowOnLogin,
+  ShowOnLogout,
+} from "../protect/hiddenLink";
 
 const Navbar = ({ toggle }) => {
   const [scrollNav, setScrollNav] = useState(false);
@@ -128,15 +132,18 @@ const Navbar = ({ toggle }) => {
                 </NavLinkS>
               </NavItem>
               <ShowOnLogin>
-                <NavDashboard to="/dashboard">Go to Dashboard</NavDashboard>
+                <ShowDashboard>
+                  <NavDashboard to="/dashboard">Go to Dashboard</NavDashboard>
+                </ShowDashboard>
               </ShowOnLogin>
+              <NavbarGreeting>
+                <ShowOnLogin>
+                  <FaUserCircle size={20} />
+                  <p className="--color-dark">Hi, Nisha </p>
+                </ShowOnLogin>
+              </NavbarGreeting>
             </NavMenu>
-            <NavbarGreeting>
-              <ShowOnLogin>
-                <FaUserCircle size={20} />
-                <p className="--color-dark">Hi, Nisha </p>
-              </ShowOnLogin>
-            </NavbarGreeting>
+
             <ShowOnLogout>
               <NavBtn>
                 <NavBtnLink to="/login">Login</NavBtnLink>

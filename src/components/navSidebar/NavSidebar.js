@@ -11,7 +11,15 @@ import {
   SideBtnWrap,
   SidebarWrapper,
   SidebarMenu,
+  SideDashboard,
 } from "./NavSidebarElements";
+import {
+  ShowDashboard,
+  ShowOnLogin,
+  ShowOnLogout,
+} from "../protect/hiddenLink";
+import { NavbarGreeting } from "../navbar/NavbarElements";
+import { FaUserCircle } from "react-icons/fa";
 
 const NavSidebar = ({ isOpen, toggle }) => {
   const dispatch = useDispatch();
@@ -45,10 +53,25 @@ const NavSidebar = ({ isOpen, toggle }) => {
             <SidebarLink to="contact" onClick={toggle}>
               Contact us
             </SidebarLink>
+            <ShowOnLogin>
+              <ShowDashboard>
+                <SideDashboard to="/dashboard">Go to Dashboard</SideDashboard>
+              </ShowDashboard>
+            </ShowOnLogin>
+            <NavbarGreeting>
+              <ShowOnLogin>
+                <FaUserCircle size={20} className="--mb" />
+                <p className="--color-white --mb">Hi, Nisha </p>
+              </ShowOnLogin>
+            </NavbarGreeting>
           </SidebarMenu>
           <SideBtnWrap>
-            <SidebarRoute to="/login">Login</SidebarRoute>
-            <SidebarRoute onClick={logoutUser}>Logout</SidebarRoute>
+            <ShowOnLogout>
+              <SidebarRoute to="/login">Login</SidebarRoute>
+            </ShowOnLogout>
+            <ShowOnLogin>
+              <SidebarRoute onClick={logoutUser}>Logout</SidebarRoute>
+            </ShowOnLogin>
           </SideBtnWrap>
         </SidebarWrapper>
       </SidebarContainer>
