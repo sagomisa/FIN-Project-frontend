@@ -15,6 +15,12 @@ const login = async (userData) => {
   return response.data;
 };
 
+//Logout User
+const logout = async (userData) => {
+  const response = await axios.get(API_URL + "logout", userData);
+  return response.data.message;
+};
+
 // Validate email
 export const validateEmail = (email) => {
   return email.match(
@@ -25,6 +31,7 @@ export const validateEmail = (email) => {
 const authService = {
   register,
   login,
+  logout,
 };
 
 export default authService;

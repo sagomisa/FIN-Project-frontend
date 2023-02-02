@@ -14,9 +14,15 @@ import {
   NavLinkS,
 } from "./NavbarElements";
 import logo from "../../assets/logo.png";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout, RESET } from "../../redux/features/auth/authSlice";
 
 const Navbar = ({ toggle }) => {
   const [scrollNav, setScrollNav] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const changeNav = () => {
     if (window.scrollY >= 80) {
@@ -33,6 +39,13 @@ const Navbar = ({ toggle }) => {
   const toggleHome = () => {
     scroll.scrollToTop();
   };
+
+  const logoutUser = async () => {
+    dispatch(RESET());
+    await dispatch(logout());
+    navigate("/login");
+  };
+
   return (
     <>
       <IconContext.Provider value={{ color: "#000" }}>
@@ -114,6 +127,11 @@ const Navbar = ({ toggle }) => {
             </NavMenu>
             <NavBtn>
               <NavBtnLink to="/login">Login</NavBtnLink>
+            </NavBtn>
+            <NavBtn>
+              <NavBtnLink to="/logout" onClick={logoutUser}>
+                Logout
+              </NavBtnLink>
             </NavBtn>
           </NavbarContainer>
         </Nav>
