@@ -27,6 +27,12 @@ const getLoginStatus = async () => {
   return response.data;
 };
 
+// Get user profile
+const getUser = async () => {
+  const response = await axios.get(API_URL + "getUser");
+  return response.data;
+};
+
 // Validate email
 export const validateEmail = (email) => {
   return email.match(
@@ -39,6 +45,7 @@ const authService = {
   login,
   logout,
   getLoginStatus,
+  getUser,
 };
 
 export default authService;
