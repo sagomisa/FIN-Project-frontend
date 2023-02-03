@@ -33,6 +33,11 @@ const getUser = async () => {
   return response.data;
 };
 
+// Get update profile
+const updateUser = async (userData) => {
+  const response = await axios.patch(API_URL + "updateUser", userData);
+  return response.data;
+};
 // Validate email
 export const validateEmail = (email) => {
   return email.match(
@@ -46,6 +51,7 @@ const authService = {
   logout,
   getLoginStatus,
   getUser,
+  updateUser,
 };
 
 export default authService;

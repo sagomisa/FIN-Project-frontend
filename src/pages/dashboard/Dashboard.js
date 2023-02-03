@@ -4,7 +4,7 @@ import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser"
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  // useRedirectLoggedOutUser("/login");
+  useRedirectLoggedOutUser("/login");
   return (
     <div className="dashboard">
       <Sidebar />
