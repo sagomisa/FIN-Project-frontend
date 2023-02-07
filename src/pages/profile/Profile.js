@@ -16,6 +16,14 @@ import "./Profile.scss";
 const cloud_name = process.env.REACT_APP_CLOUD_NAME;
 const upload_preset = process.env.REACT_APP_UPLOAD_PRESET;
 
+export const shortenText = (text, n) => {
+  if (text.length > n) {
+    const shoretenedText = text.substring(0, n).concat("...");
+    return shoretenedText;
+  }
+  return text;
+};
+
 const Profile = () => {
   const dispatch = useDispatch();
 
@@ -190,7 +198,7 @@ export const UserName = () => {
 
   const username = user?.name || "...";
 
-  return <p className="--color-dark">Hi, {username} </p>;
+  return <p className="--color-dark">Hi, {shortenText(username, 9)} </p>;
 };
 
 export default Profile;

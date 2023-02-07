@@ -139,8 +139,10 @@ const Navbar = ({ toggle }) => {
               </ShowOnLogin>
               <NavbarGreeting>
                 <ShowOnLogin>
-                  <FaUserCircle size={20} />
-                  <UserName />
+                  <div className="greeting">
+                    <FaUserCircle size={20} />
+                    <UserName />
+                  </div>
                 </ShowOnLogin>
               </NavbarGreeting>
             </NavMenu>

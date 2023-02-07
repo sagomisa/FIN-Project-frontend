@@ -61,8 +61,10 @@ const NavSidebar = ({ isOpen, toggle }) => {
             </ShowOnLogin>
             <NavbarGreeting>
               <ShowOnLogin>
-                <FaUserCircle size={20} className="--mb" />
-                <UserName />
+                <div className="greeting">
+                  <FaUserCircle size={20} className="--mb" />
+                  <UserName />
+                </div>
               </ShowOnLogin>
             </NavbarGreeting>
           </SidebarMenu>
