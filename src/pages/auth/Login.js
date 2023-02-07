@@ -98,17 +98,7 @@ const Login = () => {
                 onChange={handleInputChange}
                 placeholder="Password"
               />
-              {/* <TextField
-              name="password"
-              variant="outlined"
-              value={password}
-              onChange={handleInputChange}
-              type="password"
-              placeholder="Password"
-              margin="normal"
-              sx={{ width: "100%" }}
-            /> */}
-
+             
               <Button
                 sx={{
                   color: "#fff",

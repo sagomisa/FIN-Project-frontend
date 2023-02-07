@@ -24,6 +24,7 @@ import {
   ShowOnLogin,
   ShowOnLogout,
 } from "../protect/hiddenLink";
+import { UserName } from "../../pages/profile/Profile";
 
 const Navbar = ({ toggle }) => {
   const [scrollNav, setScrollNav] = useState(false);
@@ -50,7 +51,7 @@ const Navbar = ({ toggle }) => {
   const logoutUser = async () => {
     dispatch(RESET());
     await dispatch(logout());
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -139,7 +140,7 @@ const Navbar = ({ toggle }) => {
               <NavbarGreeting>
                 <ShowOnLogin>
                   <FaUserCircle size={20} />
-                  <p className="--color-dark">Hi, Nisha </p>
+                  <UserName />
                 </ShowOnLogin>
               </NavbarGreeting>
             </NavMenu>

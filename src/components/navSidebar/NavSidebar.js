@@ -20,6 +20,7 @@ import {
 } from "../protect/hiddenLink";
 import { NavbarGreeting } from "../navbar/NavbarElements";
 import { FaUserCircle } from "react-icons/fa";
+import { UserName } from "../../pages/profile/Profile";
 
 const NavSidebar = ({ isOpen, toggle }) => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const NavSidebar = ({ isOpen, toggle }) => {
   const logoutUser = async () => {
     dispatch(RESET());
     await dispatch(logout());
-    navigate("/login");
+    navigate("/");
   };
   return (
     <>
@@ -61,7 +62,7 @@ const NavSidebar = ({ isOpen, toggle }) => {
             <NavbarGreeting>
               <ShowOnLogin>
                 <FaUserCircle size={20} className="--mb" />
-                <p className="--color-white --mb">Hi, Nisha </p>
+                <UserName />
               </ShowOnLogin>
             </NavbarGreeting>
           </SidebarMenu>

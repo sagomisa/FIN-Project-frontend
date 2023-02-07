@@ -45,6 +45,19 @@ export const validateEmail = (email) => {
   );
 };
 
+//Validate password
+export const checkUcaseLcase = (password) => {
+  return password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/);
+};
+
+export const checkNumbers = (password) => {
+  return password.match(/([0-9])/);
+};
+
+export const checkChar = (password) => {
+  return password.match(/([!,%,&,@,#,$,^,*,?,_,~])/);
+};
+
 const authService = {
   register,
   login,

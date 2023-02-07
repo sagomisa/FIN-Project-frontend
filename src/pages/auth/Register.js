@@ -6,7 +6,12 @@ import { FaTimes } from "react-icons/fa";
 import { BsCheck2All } from "react-icons/bs";
 import PasswordInput from "../../components/passwordInput/PasswordInput";
 import { toast } from "react-toastify";
-import { validateEmail } from "../../redux/features/auth/authService";
+import {
+  checkChar,
+  checkNumbers,
+  checkUcaseLcase,
+  validateEmail,
+} from "../../redux/features/auth/authService";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { register, RESET } from "../../redux/features/auth/authSlice";
@@ -92,6 +97,18 @@ const Register = () => {
     }
     if (password !== password2) {
       return toast.error("Password do not match");
+    }
+
+    if (!checkUcaseLcase(password)) {
+      return toast.error(
+        "Please add at least one uppercase and lowercase letter"
+      );
+    }
+    if (!checkNumbers(password)) {
+      return toast.error("Please add at least one number");
+    }
+    if (!checkChar(password)) {
+      return toast.error("Please add at least one character");
     }
 
     const userData = {

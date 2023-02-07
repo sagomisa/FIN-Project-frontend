@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import profileImg from "../../assets/logo.png";
 import Card from "../../components/card/Card";
 import Loader from "../../components/loader/Loader";
 import Sidebar from "../../components/sidebar/Sidebar";
 import TabComponent from "../../components/tabs/TabComponent";
-import { getUser } from "../../redux/features/auth/authSlice";
+import {
+  getUser,
+  selectUser,
+  updateUser,
+} from "../../redux/features/auth/authSlice";
 import "./Profile.scss";
+
+const cloud_name = process.env.REACT_APP_CLOUD_NAME;
+const upload_preset = process.env.REACT_APP_UPLOAD_PRESET;
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -42,13 +50,66 @@ const Profile = () => {
     setProfile({ ...profile, [name]: value });
   };
 
+  const saveProfile = async (e) => {
+    e.preventDefault();
+    let imageURL;
+    try {
+      if (
+        profileImage !== null &&
+        (profileImage.type === "image/jpeg" ||
+          profileImage.type === "image/jpg" ||
+          profileImage.type === "image/png")
+      ) {
+        const image = new FormData();
+        image.append("file", profileImage);
+        image.append("cloud_name", cloud_name);
+        image.append("upload_preset", upload_preset);
+
+        // Save image to Cloudinary
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dvltqeqeg/image/upload",
+          { method: "post", body: image }
+        );
+        const imgData = await response.json();
+        console.log(imgData);
+        imageURL = imgData.url.toString();
+      }
+
+      //Save profile to MongoDB
+      const userData = {
+        name: profile.name,
+        phone: profile.phone,
+        bio: profile.bio,
+        photo: profileImage ? imageURL : profile.photo,
+      };
+      dispatch(updateUser(userData));
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  useLayoutEffect(() => {
+    if (user) {
+      setProfile({
+        ...profile,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        bio: user.bio,
+        photo: user.photo,
+        role: user.role,
+        isVerified: user.isVerified,
+      });
+    }
+  }, [user]);
+
   return (
     <>
       {isLoading && <Loader />}
       <div className="dashboard">
         <Sidebar />
         <div className="dashboard-content">
-          <h2 style={{color: "var(--color-dark)"}}>Profile</h2>
+          <h2 style={{ color: "var(--color-dark)" }}>Profile</h2>
           <div className="--flex-start profile">
             <Card cardClass={"card"}>
               {!isLoading && user && (
@@ -62,7 +123,7 @@ const Profile = () => {
                       <h3>Role: {profile.role}</h3>
                     </div>
                   </div>
-                  <form>
+                  <form onSubmit={saveProfile}>
                     <p>
                       <label>Change Photo:</label>
                       <input
@@ -122,6 +183,14 @@ const Profile = () => {
       </div>
     </>
   );
+};
+
+export const UserName = () => {
+  const user = useSelector(selectUser);
+
+  const username = user?.name || "...";
+
+  return <p className="--color-dark">Hi, {username} </p>;
 };
 
 export default Profile;
