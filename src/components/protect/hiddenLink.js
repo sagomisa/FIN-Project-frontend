@@ -33,9 +33,9 @@ export const ShowDashboard = ({ children }) => {
 };
 export const AdminOnlyLink = ({ children }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const userRole = useSelector(selectUser);
+  const user = useSelector(selectUser);
 
-  if (isLoggedIn && userRole === "admin") {
+  if (isLoggedIn && user?.role === "admin") {
     return <>{children}</>;
   }
   return null;

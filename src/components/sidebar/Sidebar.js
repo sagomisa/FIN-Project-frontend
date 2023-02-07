@@ -1,6 +1,7 @@
 import "./Sidebar.css";
 
 import { Link, NavLink } from "react-router-dom";
+import { AdminOnlyLink } from "../protect/hiddenLink";
 function Sidebar() {
   return (
     <div className="sidebar">
@@ -55,15 +56,17 @@ function Sidebar() {
             >
               Events & Discussion
             </NavLink>
-            <NavLink
-              to="/users"
-              className="sidebarListItem "
-              style={({ isActive }) => ({
-                color: isActive ? "#f48634" : "var(--color-dark)",
-              })}
-            >
-              Users
-            </NavLink>
+            <AdminOnlyLink>
+              <NavLink
+                to="/users"
+                className="sidebarListItem "
+                style={({ isActive }) => ({
+                  color: isActive ? "#f48634" : "var(--color-dark)",
+                })}
+              >
+                Users
+              </NavLink>
+            </AdminOnlyLink>
             <NavLink
               to="/profile"
               className="sidebarListItem "
