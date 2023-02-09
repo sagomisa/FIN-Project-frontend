@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import profileImg from "../../assets/logo.png";
 import Card from "../../components/card/Card";
 import Loader from "../../components/loader/Loader";
+import Notification from "../../components/notification/Notification";
 import Sidebar from "../../components/sidebar/Sidebar";
 import TabComponent from "../../components/tabs/TabComponent";
 import {
@@ -114,6 +115,7 @@ const Profile = () => {
   return (
     <>
       {isLoading && <Loader />}
+      {!profile.isVerified && <Notification />}
       <div className="dashboard">
         <Sidebar />
         <div className="dashboard-content">

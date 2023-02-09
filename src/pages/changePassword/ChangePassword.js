@@ -1,10 +1,19 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import profileImg from "../../assets/logo.png";
 import Card from "../../components/card/Card";
 import PasswordInput from "../../components/passwordInput/PasswordInput";
 import Sidebar from "../../components/sidebar/Sidebar";
-import TabComponent from "../../components/tabs/TabComponent";
+import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
+import { toast } from "react-toastify";
+import {
+  changePassword,
+  logout,
+  RESET,
+} from "../../redux/features/auth/authSlice";
 import "./ChangePassword.scss";
+import { Spinner } from "../../components/loader/Loader";
 
 const initialState = {
   oldPassword: "",
@@ -13,11 +22,41 @@ const initialState = {
 };
 
 const ChangePassword = () => {
+  useRedirectLoggedOutUser("/login");
   const [formData, setFormData] = useState(initialState);
 
   const { oldPassword, newPassword, confirmPassword } = formData;
 
-  const handleInputChange = () => {};
+  const { isLoading, user } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const updatePassword = async (e) => {
+    e.preventDefault();
+
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      return toast.error("All fields are required");
+    }
+    if (newPassword !== confirmPassword) {
+      return toast.error("Password do not match");
+    }
+
+    const userData = {
+      oldPassword,
+      newPassword,
+    };
+
+    await dispatch(changePassword(userData));
+    await dispatch(logout());
+    await dispatch(RESET(userData));
+    navigate("/login");
+  };
   return (
     <>
       <div className="dashboard">
@@ -27,7 +66,7 @@ const ChangePassword = () => {
           <div className="--flex-start profile">
             <Card className={"card"}>
               <div>
-                <form>
+                <form onSubmit={updatePassword}>
                   <p>
                     <label>Current Password:</label>
                     <PasswordInput
@@ -55,10 +94,16 @@ const ChangePassword = () => {
                       placeholder="Confirm New Password"
                     />
                   </p>
-
-                  <button className="--btn --btn-danger --btn-block --btn-lg">
-                    Change Password
-                  </button>
+                  {isLoading ? (
+                    <Spinner />
+                  ) : (
+                    <button
+                      type="submit"
+                      className="--btn --btn-danger --btn-block --btn-lg"
+                    >
+                      Change Password
+                    </button>
+                  )}
                 </form>
               </div>
             </Card>

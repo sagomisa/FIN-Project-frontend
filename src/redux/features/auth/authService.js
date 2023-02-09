@@ -38,11 +38,50 @@ const updateUser = async (userData) => {
   const response = await axios.patch(API_URL + "updateUser", userData);
   return response.data;
 };
+
+// Send Verification Email
+const sendVerificationEmail = async () => {
+  const response = await axios.post(API_URL + "sendVerificationEmail");
+  return response.data.message;
+};
+
+// Verify User
+const verifyUser = async (verificationToken) => {
+  const response = await axios.patch(
+    `${API_URL}verifyUser/${verificationToken}`
+  );
+  return response.data.message;
+};
+
 // Validate email
 export const validateEmail = (email) => {
   return email.match(
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   );
+};
+
+// Change Password
+const changePassword = async (userData) => {
+  const response = await axios.patch(API_URL + "changePassword", userData);
+
+  return response.data.message;
+};
+
+// Reset Password
+const resetPassword = async (userData, resetToken) => {
+  const response = await axios.patch(
+    `${API_URL}resetPassword/${resetToken}`,
+    userData
+  );
+
+  return response.data.message;
+};
+
+// FORGOT Password
+const forgotPassword = async (userData) => {
+  const response = await axios.post(API_URL + "forgotPassword", userData);
+
+  return response.data.message;
 };
 
 //Validate password
@@ -65,6 +104,9 @@ const authService = {
   getLoginStatus,
   getUser,
   updateUser,
+  sendVerificationEmail,
+  verifyUser,
+  changePassword,
 };
 
 export default authService;

@@ -14,7 +14,11 @@ import {
 } from "../../redux/features/auth/authService";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { register, RESET } from "../../redux/features/auth/authSlice";
+import {
+  register,
+  RESET,
+  sendVerificationEmail,
+} from "../../redux/features/auth/authSlice";
 import Loader from "../../components/loader/Loader";
 
 const initialState = {
@@ -118,6 +122,8 @@ const Register = () => {
     };
     console.log(userData);
     await dispatch(register(userData));
+    //When user is registered, this action is fired (user will get an email)
+    await dispatch(sendVerificationEmail());
   };
 
   useEffect(() => {
