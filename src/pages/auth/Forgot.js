@@ -4,17 +4,40 @@ import styles from "./auth.module.scss";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import PasswordInput from "../../components/passwordInput/PasswordInput";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { forgotPassword, RESET } from "../../redux/features/auth/authSlice";
+import { validateEmail } from "../../redux/features/auth/authService";
+import Loader from "../../components/loader/Loader";
 
 const Forgot = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleInputChange = () => {};
-  const loginUser = () => {};
+  const dispatch = useDispatch();
+
+  const { isLoading } = useSelector((state) => state.auth);
+
+  const forgot = async (e) => {
+    e.preventDefault();
+
+    if (!email) {
+      return toast.error("Please enter an email");
+    }
+    if (!validateEmail(email)) {
+      return toast.error("Please enter a valid email");
+    }
+
+    const userData = {
+      email,
+    };
+    await dispatch(forgotPassword(userData));
+    await dispatch(RESET(userData));
+  };
   return (
     <div className={`container ${styles.auth}`}>
+      {isLoading && <Loader />}
       <Card>
-        <form onSubmit={loginUser} className={styles.form}>
+        <form onSubmit={forgot} className={styles.form}>
           <Box
             className="formBox"
             marginLeft="auto"
@@ -39,7 +62,7 @@ const Forgot = () => {
               name="email"
               variant="outlined"
               value={email}
-              onChange={handleInputChange}
+              onChange={(e) => setEmail(e.target.value)}
               type="email"
               placeholder="Email"
               margin="normal"
