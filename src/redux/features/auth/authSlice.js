@@ -10,6 +10,10 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
+  verifiedUsers: 0,
+  membersCount: 0,
+  loanAdminCount: 0,
+  adminCount: 0,
 };
 
 //Register User
@@ -267,6 +271,62 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.message = "";
     },
+    CALC_VERIFIED_USER(state, action) {
+      const array = [];
+      state.users.map((user) => {
+        const { isVerified } = user;
+        return array.push(isVerified);
+      });
+      let count = 0;
+      array.forEach((item) => {
+        if (item === true) {
+          count += 1;
+        }
+      });
+      state.verifiedUsers = count;
+    },
+    CALC_MEMBERS(state, action) {
+      const array = [];
+      state.users.map((user) => {
+        const { role } = user;
+        return array.push(role);
+      });
+      let count = 0;
+      array.forEach((item) => {
+        if (item === "member") {
+          count += 1;
+        }
+      });
+      state.membersCount = count;
+    },
+    CALC_LOANADMIN(state, action) {
+      const array = [];
+      state.users.map((user) => {
+        const { role } = user;
+        return array.push(role);
+      });
+      let count = 0;
+      array.forEach((item) => {
+        if (item === "loanAdmin") {
+          count += 1;
+        }
+      });
+      state.loanAdminCount = count;
+    },
+    CALC_ADMIN(state, action) {
+      const array = [];
+      state.users.map((user) => {
+        const { role } = user;
+        return array.push(role);
+      });
+      let count = 0;
+      array.forEach((item) => {
+        if (item === "admin") {
+          count += 1;
+        }
+      });
+      state.adminCount = count;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -517,7 +577,13 @@ const authSlice = createSlice({
   },
 });
 
-export const { RESET } = authSlice.actions;
+export const {
+  RESET,
+  CALC_VERIFIED_USER,
+  CALC_MEMBERS,
+  CALC_LOANADMIN,
+  CALC_ADMIN,
+} = authSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectUser = (state) => state.auth.user;
