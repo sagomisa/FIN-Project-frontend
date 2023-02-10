@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Card from "../../components/card/Card";
 import styles from "./auth.module.scss";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
-import PasswordInput from "../../components/passwordInput/PasswordInput";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword, RESET } from "../../redux/features/auth/authSlice";

@@ -60,19 +60,19 @@ const changePassword = async (userData) => {
   return response.data.message;
 };
 
+// Forgot Password
+const forgotPassword = async (userData) => {
+  const response = await axios.post(API_URL + "forgotPassword", userData);
+
+  return response.data.message;
+};
+
 // Reset Password
 const resetPassword = async (userData, resetToken) => {
   const response = await axios.patch(
     `${API_URL}resetPassword/${resetToken}`,
     userData
   );
-
-  return response.data.message;
-};
-
-// FORGOT Password
-const forgotPassword = async (userData) => {
-  const response = await axios.post(API_URL + "forgotPassword", userData);
 
   return response.data.message;
 };
@@ -107,8 +107,8 @@ const authService = {
   sendVerificationEmail,
   verifyUser,
   changePassword,
-  resetPassword,
   forgotPassword,
+  resetPassword,
 };
 
 export default authService;
