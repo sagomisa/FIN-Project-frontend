@@ -77,6 +77,27 @@ const resetPassword = async (userData, resetToken) => {
   return response.data.message;
 };
 
+// Get Users
+const getUsers = async () => {
+  const response = await axios.get(API_URL + "getUsers");
+
+  return response.data;
+};
+
+// Delete User
+const deleteUser = async (id) => {
+  const response = await axios.delete(API_URL + id);
+
+  return response.data.message;
+};
+
+// Upgrade User
+const upgradeUser = async (userData) => {
+  const response = await axios.post(API_URL + "upgradeUser", userData);
+
+  return response.data.message;
+};
+
 // Validate email
 export const validateEmail = (email) => {
   return email.match(
@@ -109,6 +130,9 @@ const authService = {
   changePassword,
   forgotPassword,
   resetPassword,
+  getUsers,
+  deleteUser,
+  upgradeUser,
 };
 
 export default authService;

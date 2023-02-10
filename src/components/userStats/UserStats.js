@@ -19,7 +19,7 @@ const UserStats = () => {
         <InfoBox icon={icon} title={"Members"} count={"10"} bgColor="card2" />
         <InfoBox
           icon={icon}
-          title={"Loan Officer"}
+          title={"Loan Admin"}
           count={"10"}
           bgColor="card3"
         />

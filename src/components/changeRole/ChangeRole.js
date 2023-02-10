@@ -9,7 +9,7 @@ const ChangeRole = () => {
         <select value={userRole} onChange={(e) => setUserRole(e.target.value)}>
           <option value="">-- select --</option>
           <option value="members">Members</option>
-          <option value="loan-officer">Loan Officer</option>
+          <option value="loanAdmin">Loan Admin</option>
           <option value="admin">Admin</option>
         </select>
         <button className="--btn --btn-primary">

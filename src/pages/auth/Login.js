@@ -21,7 +21,7 @@ const Login = () => {
   const { email, password } = formData;
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const { isLoading, isLoggedIn, isSuccess, message } = useSelector(
     (state) => state.auth

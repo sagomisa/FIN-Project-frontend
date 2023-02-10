@@ -40,3 +40,12 @@ export const AdminOnlyLink = ({ children }) => {
   }
   return null;
 };
+export const LoanAdminLink = ({ children }) => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const user = useSelector(selectUser);
+
+  if (isLoggedIn && (user?.role === "admin" || user?.role === "loanAdmin")) {
+    return <>{children}</>;
+  }
+  return null;
+};
