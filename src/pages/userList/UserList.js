@@ -84,7 +84,6 @@ const UserList = () => {
     <section>
       <div className="users">
         <Sidebar />
-
         <div className="user-list">
           <UserStats />
           {isLoading && <Spinner />}

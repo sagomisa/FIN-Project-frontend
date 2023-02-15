@@ -93,6 +93,22 @@ export const NavLinkS = styled(LinkS)`
   }
 `;
 
+// I created NavLinkR to be used when the user is not on the home page. ("/")
+export const NavLinkR = styled(LinkR)`
+  color: ${({ scrollNav }) => (scrollNav ? "#fff" : "#000")};
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  cursor: pointer;
+  &.active {
+    border-bottom: 3px solid var(--color-primary);
+  }
+`;
+
 export const NavBtn = styled.nav`
   display: flex;
   align-items: center;
@@ -122,7 +138,7 @@ export const NavBtnLink = styled(LinkR)`
   }
 `;
 export const NavDashboard = styled(LinkR)`
-  color: var(--color-dark);
+  color: ${({ scrollNav }) => (scrollNav ? "#fff" : "#000")};
   justify-self: flex-start;
   cursor: pointer;
   font-size: 1.3rem;

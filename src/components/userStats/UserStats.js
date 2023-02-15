@@ -28,7 +28,7 @@ const UserStats = () => {
 
   return (
     <div className="user-summary">
-      <h3 className="--mt">User Stats</h3>
+      {/* <h3 className="--mt">User Stats</h3>
       <div className="info-summary">
         <InfoBox
           icon={icon}
@@ -66,7 +66,7 @@ const UserStats = () => {
           count={unverifiedUsers}
           bgColor="card2"
         />
-      </div>
+      </div> */}
     </div>
   );
 };

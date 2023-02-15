@@ -25,6 +25,7 @@ import Blogs from "./pages/blogs/Blogs";
 import TermsOfUse from "./pages/termsOfUse/TermsOfUse";
 import PrivacyPolicy from "./pages/privacyPolicy/PrivacyPolicy";
 import LayoutLogoNav from "./components/layoutLogoNav/LayoutLogoNav";
+import NotFound from "./components/notFound/NotFound";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -121,7 +122,7 @@ function App() {
             }
           />
           <Route
-            path="/login"
+            path="/login/:path?"
             element={
               <LayoutLogoNav>
                 <Login />
@@ -193,7 +194,7 @@ function App() {
             }
           />
           <Route
-            path="/dashboard"
+            path="/dashboard/:path?"
             element={
               <Layout>
                 <Dashboard />
@@ -240,6 +241,8 @@ function App() {
               </Layout>
             }
           />
+          {/* 404 Not Found */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>
