@@ -126,13 +126,13 @@ const Register = () => {
     await dispatch(sendVerificationEmail());
   };
 
-  useEffect(() => {
-    if (isSuccess && isLoggedIn) {
-      navigate("/dashboard");
-    }
+  // useEffect(() => {
+  //   if (isSuccess && isLoggedIn) {
+  //     navigate("/dashboard");
+  //   }
 
-    dispatch(RESET());
-  }, [isLoggedIn, isSuccess, dispatch, navigate]);
+  //   dispatch(RESET());
+  // }, [isLoggedIn, isSuccess, dispatch, navigate]);
 
   return (
     <div className={`container ${styles.auth}`}>
