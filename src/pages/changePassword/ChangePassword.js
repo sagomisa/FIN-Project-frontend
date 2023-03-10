@@ -140,7 +140,7 @@ const ChangePassword = () => {
     <>
       <div className="dashboard">
         <Sidebar />
-        {/* <div className="dashboard-content">
+        <div className="dashboard-content">
           <h2 className="--color-dark">Change Password</h2>
           <div className="--flex-start change-password">
             <Card cardClass={"card"}>
@@ -188,7 +188,7 @@ const ChangePassword = () => {
               </>
             </Card>
           </div>
-        </div> */}
+        </div>
       </div>
     </>
   );

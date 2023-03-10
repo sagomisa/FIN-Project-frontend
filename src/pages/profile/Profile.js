@@ -117,7 +117,7 @@ const Profile = () => {
       {!profile.isVerified && <Notification />}
       <div className="dashboard">
         <Sidebar />
-        {/* <div className="dashboard-content">
+        <div className="dashboard-content">
           <h2 style={{ color: "var(--color-dark)" }}>Profile</h2>
           <div className="--flex-start profile">
             <Card cardClass={"card"}>
@@ -188,7 +188,7 @@ const Profile = () => {
               )}
             </Card>
           </div>
-        </div>*/}
+        </div>
       </div>
     </>
   );
