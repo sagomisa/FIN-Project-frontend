@@ -12,6 +12,7 @@ import {
 import EventCard from "../../components/eventCard/EventCard";
 import moment from "moment-timezone";
 import { AdminOnlyLink } from "../../components/protect/hiddenLink";
+import ScrollToTop from "../../components/scrollToTop/ScrollToTop";
 
 const eventFormState = {
   title: "",
@@ -156,7 +157,7 @@ const Events = () => {
   return (
     <div className="dashboard">
       <Sidebar />
-
+      <ScrollToTop />
       <div className="dashboard-content">
         <div className="eventsContainer">
           <div className="--flex-between top">

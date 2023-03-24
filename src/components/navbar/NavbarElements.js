@@ -144,7 +144,6 @@ export const NavDashboard = styled(LinkR)`
   font-size: 1.3rem;
   display: flex;
   align-items: center;
-  text-decoration: underline;
 `;
 export const NavbarGreeting = styled.div`
   display: flex;

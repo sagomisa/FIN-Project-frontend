@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaBars, FaUserCircle } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { animateScroll as scroll } from "react-scroll";
 import {
@@ -12,21 +12,15 @@ import {
   NavBtn,
   NavBtnLink,
   NavLinkS,
-  NavbarGreeting,
-  NavDashboard,
   NavLinkR,
 } from "./NavbarElements";
 import logo from "../../assets/logo.png";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { logout, RESET } from "../../redux/features/auth/authSlice";
-import {
-  ShowDashboard,
-  ShowOnLogin,
-  ShowOnLogout,
-} from "../protect/hiddenLink";
-import { UserName } from "../../pages/profile/Profile";
+import { ShowOnLogin, ShowOnLogout } from "../protect/hiddenLink";
 import { navbarList } from "./NavbarList";
+import Dropdown from "../dropdown/Dropdown";
 
 const Navbar = ({ toggle }) => {
   const [scrollNav, setScrollNav] = useState(false);
@@ -58,8 +52,12 @@ const Navbar = ({ toggle }) => {
       }
     }
 
-    if (location.pathname === "/dashboard") {
-      // Whenever user navigates to dashboard, scroll to top of page.
+    if (
+      location.pathname === "/dashboard" ||
+      location.pathname === "/events" ||
+      location.pathname === "/teams"
+    ) {
+      // Whenever user navigates to dashboard or corresponding pages, scroll to top of page.
       window.scrollTo(0, 0);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,12 +77,6 @@ const Navbar = ({ toggle }) => {
 
   const toggleHome = () => {
     scroll.scrollToTop();
-  };
-
-  const logoutUser = async () => {
-    dispatch(RESET());
-    await dispatch(logout());
-    navigate("/");
   };
 
   return (
@@ -128,20 +120,9 @@ const Navbar = ({ toggle }) => {
                   </NavItem>
                 );
               })}
-
               <ShowOnLogin>
-                <ShowDashboard>
-                  <NavDashboard to="/dashboard">Go to Dashboard</NavDashboard>
-                </ShowDashboard>
+                <Dropdown />
               </ShowOnLogin>
-              <NavbarGreeting>
-                <ShowOnLogin>
-                  <div className="greeting">
-                    <FaUserCircle size={20} />
-                    <UserName />
-                  </div>
-                </ShowOnLogin>
-              </NavbarGreeting>
             </NavMenu>
 
             <ShowOnLogout>
@@ -149,11 +130,6 @@ const Navbar = ({ toggle }) => {
                 <NavBtnLink to="/login">Login</NavBtnLink>
               </NavBtn>
             </ShowOnLogout>
-            <ShowOnLogin>
-              <NavBtn>
-                <NavBtnLink onClick={logoutUser}>Logout</NavBtnLink>
-              </NavBtn>
-            </ShowOnLogin>
           </NavbarContainer>
         </Nav>
       </IconContext.Provider>

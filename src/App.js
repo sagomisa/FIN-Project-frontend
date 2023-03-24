@@ -24,7 +24,6 @@ import OurTeam from "./pages/ourTeam/OurTeam";
 import Blogs from "./pages/blogs/Blogs";
 import TermsOfUse from "./pages/termsOfUse/TermsOfUse";
 import PrivacyPolicy from "./pages/privacyPolicy/PrivacyPolicy";
-import LayoutLogoNav from "./components/layoutLogoNav/LayoutLogoNav";
 import NotFound from "./components/notFound/NotFound";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
@@ -124,9 +123,9 @@ function App() {
           <Route
             path="/login/:path?"
             element={
-              <LayoutLogoNav>
+              <Layout>
                 <Login />
-              </LayoutLogoNav>
+              </Layout>
             }
           />
           <Route
