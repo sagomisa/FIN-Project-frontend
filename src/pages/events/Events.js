@@ -11,6 +11,7 @@ import {
 } from "../../redux/features/event/eventSlice";
 import EventCard from "../../components/eventCard/EventCard";
 import moment from "moment-timezone";
+import { AdminOnlyLink } from "../../components/protect/hiddenLink";
 
 const eventFormState = {
   title: "",
@@ -155,22 +156,23 @@ const Events = () => {
   return (
     <div className="dashboard">
       <Sidebar />
-      
+
       <div className="dashboard-content">
         <div className="eventsContainer">
           <div className="--flex-between top">
             <span>
               <h3>Our Events</h3>
             </span>
-
-            <span className="addEventBtn">
-              <button
-                className="addEventButton --btn-primary --btn-sm"
-                onClick={() => setOpenPopup(true)}
-              >
-                <FaPlus size={20} color="white" id="addIcon" />
-              </button>
-            </span>
+            <AdminOnlyLink>
+              <span className="addEventBtn">
+                <button
+                  className="addEventButton --btn-primary --btn-sm"
+                  onClick={() => setOpenPopup(true)}
+                >
+                  <FaPlus size={20} color="white" id="addIcon" />
+                </button>
+              </span>
+            </AdminOnlyLink>
           </div>
           <div className="upcoming-events">
             <h2>Upcoming Events</h2>
