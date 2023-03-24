@@ -1,0 +1,121 @@
+.eventsContainer h2 {
+    color: var(--color-dark);
+  }
+  .eventsContainer span h3 {
+    font-size: 2.5rem;
+  }
+  .top {
+    margin-bottom: 2%;
+  }
+  .addEventButton {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+  }
+  
+  .eventFormPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  
+  .eventFormPopup__content {
+    position: relative;
+    width: 500px;
+    max-width: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .eventFormPopup__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .eventFormPopup__header h2 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .eventFormPopup__closeBtn {
+    cursor: pointer;
+    color: #999;
+  }
+  
+  .eventFormPopup__closeBtn:hover {
+    color: #000;
+  }
+  
+  .eventFormPopup__body {
+    margin-top: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="date"],
+  .form-group input[type="time"],
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .form-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+  }
+  
+  .form-container .form-group {
+      width: 50%;
+  }
+  
+  .form-container .form-group:first-child {
+      margin-right: 10%;
+  }
+  
+  .form-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      font-size: 16px;
+      cursor: pointer;
+  }
+  
+  .form-button:hover {
+      background-color: #444;
+  }
+  
