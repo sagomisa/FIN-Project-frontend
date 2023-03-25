@@ -48,7 +48,29 @@ const LoanHistory = () => {
 
   const allLoans = getAllLoansWithUser();
 
-  const confirmDelete = () => {};
+  const removeLoan = async (id) => {
+    await dispatch(deleteLoan(id));
+    await dispatch(getAllLoans());
+  };
+
+  const confirmDelete = (id) => {
+    confirmAlert({
+      title: "Delete This Loan",
+      message: "Are you sure to do delete this loan?",
+      buttons: [
+        {
+          label: "Delete",
+          onClick: () => {
+            removeLoan(id);
+          },
+        },
+        {
+          label: "Cancel",
+          onClick: () => alert("Click No"),
+        },
+      ],
+    });
+  };
 
   const formatCurrency = (amount) => {
     return amount.toLocaleString("en-US", {
@@ -102,6 +124,7 @@ const LoanHistory = () => {
                     <th>Date</th>
                     <th>Status</th>
                     <th>Action</th>
+                    {/* <th>ID</th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -114,15 +137,17 @@ const LoanHistory = () => {
                         <td>{formatCurrency(item.amount)}</td>
                         <td>{formatDate(item.createdAt)}</td>
                         <td>{item.status}</td>
+
                         <td>
                           <span>
                             <FaTrashAlt
                               size={20}
                               color="red"
-                              onClick={() => confirmDelete(item)}
+                              onClick={() => confirmDelete(item._id)}
                             />
                           </span>
                         </td>
+                        {/* <td>{item._id}</td> */}
                       </tr>
                     );
                   })}

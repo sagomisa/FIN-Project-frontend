@@ -22,6 +22,13 @@ export const createLoan = createAsyncThunk(
   }
 );
 
+//Delete a loan
+export const deleteLoan = createAsyncThunk("loan/deleteLoan", async (id) => {
+  console.log(`id2>>>>>${id}`);
+  const response = await loanService.deleteLoan(id);
+  return response;
+});
+
 const loanSlice = createSlice({
   name: "loan",
   initialState,
@@ -59,6 +66,21 @@ const loanSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
       toast.error("Error creating loan");
+    },
+    //Delete Loan
+    [deleteLoan.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteLoan.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.message = action.payload;
+      toast.success(action.payload);
+    },
+    [deleteLoan.rejected]: (state) => {
+      state.isLoading = false;
+      state.isError = true;
+      toast.error("Error deleting loan");
     },
   },
 });

@@ -15,9 +15,17 @@ const createLoan = async (loanData) => {
   return response.data;
 };
 
+//Delete Loan
+const deleteLoan = async (id) => {
+  console.log(`id>>>>>>>>>${id}`);
+  const response = await axios.delete(API_URL + "deleteLoan/" + id);
+
+  return response.data.message;
+};
 const loanService = {
   getAllLoans,
   createLoan,
+  deleteLoan,
 };
 
 export default loanService;
