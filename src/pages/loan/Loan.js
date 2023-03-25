@@ -7,6 +7,8 @@ import {
   createLoan,
   resetLoanState,
 } from "../../redux/features/loan/loanSlice";
+import loanService from "../../redux/features/loan/loanService";
+import constantService from "../../redux/features/constant/constantService";
 
 const Loan = () => {
   useRedirectLoggedOutUser("/login/?path=loan");
@@ -17,11 +19,12 @@ const Loan = () => {
   );
   const dispatch = useDispatch();
 
-  const [totalDisbursementAmount, setTotalDisbursementAmount] = useState(50000);
+  const [totalDisbursementAmount, setTotalDisbursementAmount] = useState(0);
   const [loanAmount, setLoanAmount] = useState(0);
   const [isUserAgreementFormChecked, setIsUserAgreementFormChecked] =
     useState(false);
   const [loanAmountError, setLoanAmountError] = useState("");
+  const [totalLoanFromBackend, setTotalLoanFromBackend] = useState(0);
 
   const formatCurrency = (amount) => {
     return amount.toLocaleString("en-US", {
@@ -45,8 +48,80 @@ const Loan = () => {
     return amount > totalDisbursementAmount;
   };
 
+  // Handle edit total disbursement amount
+  const handleEditTotalDisbursementAmount = async () => {
+    const newTotalDisbursementAmount = prompt(
+      "Enter new total disbursement amount"
+    );
+
+    if (newTotalDisbursementAmount) {
+      const loans = await loanService.getAllLoans();
+
+      // Add all loan amount
+      let totalLoanAmount = 0;
+      loans.forEach((loan) => {
+        totalLoanAmount += loan.amount;
+      });
+
+      // Wait for the total amount of loans to be fetched from backend
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Check if total loan amount is greater than total disbursement amount
+      if (totalLoanAmount > newTotalDisbursementAmount) {
+        alert(
+          `Total loan amount is greater than new total disbursement amount. Please try again.`
+        );
+        return;
+      }
+
+      // Update total disbursement amount
+      const response = await constantService.updateConstantValue(
+        "totalDisbursementAmount",
+        newTotalDisbursementAmount - totalLoanAmount
+      );
+
+      // Wait for the total disbursement amount to be updated
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Check if total disbursement amount is updated
+      if (response) {
+        console.log("Total disbursement amount is updated.");
+      }
+
+      // Get constant by key and set total disbursement amount
+      constantService
+        .getAllConstants()
+        .then((response) => {
+          response.forEach((constant) => {
+            if (constant.key === "totalDisbursementAmount") {
+              setTotalDisbursementAmount(parseInt(constant.value));
+            }
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (loanAmount === 0 || !loanAmount) {
+      setLoanAmountError("Loan Amount is required.");
+      return;
+    }
+
+    if (loanAmount < 5000) {
+      setLoanAmountError(
+        `Loan Amount should be minimum ${formatCurrency(5000)}`
+      );
+      return;
+    }
+
+    if (loanAmountError) {
+      return;
+    }
 
     if (isLoanAmountLessThanTotalDisbursementAmount(loanAmount)) {
       setLoanAmountError(
@@ -57,6 +132,42 @@ const Loan = () => {
       return;
     }
 
+    // Get all loans from backend
+    loanService
+      .getAllLoans()
+      .then((response) => {
+        response.forEach((loan) => {
+          setTotalLoanFromBackend((prev) => prev + loan.amount);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // Check if total loan amount is greater than total disbursement amount
+    if (totalLoanFromBackend + loanAmount > totalDisbursementAmount) {
+      setLoanAmountError(
+        `Loan Amount should be less than ${formatCurrency(
+          totalDisbursementAmount - totalLoanFromBackend
+        )}`
+      );
+      return;
+    }
+
+    // Update total disbursement amount
+    constantService
+      .updateConstantValue(
+        "totalDisbursementAmount",
+        totalDisbursementAmount - loanAmount
+      )
+      .then((response) => {
+        console.log("Response: ", response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // Create loan
     dispatch(
       createLoan({
         id: user._id,
@@ -64,8 +175,22 @@ const Loan = () => {
       })
     );
 
+    // Get constant by key and set total disbursement amount
+    constantService
+      .getAllConstants()
+      .then((response) => {
+        response.forEach((constant) => {
+          if (constant.key === "totalDisbursementAmount") {
+            setTotalDisbursementAmount(parseInt(constant.value));
+          }
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     // Reset form
-    setIsUserAgreementFormChecked(false);
+    setIsUserAgreementFormChecked(!isUserAgreementFormChecked);
     setLoanAmountError("");
     setLoanAmount(0);
 
@@ -79,6 +204,22 @@ const Loan = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loanAmount]);
 
+  // Set the total disbursement amount from backend
+  useEffect(() => {
+    constantService
+      .getAllConstants()
+      .then((response) => {
+        response.forEach((constant) => {
+          if (constant.key === "totalDisbursementAmount") {
+            setTotalDisbursementAmount(parseInt(constant.value));
+          }
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <div className="dashboard">
       <Sidebar />
@@ -88,12 +229,23 @@ const Loan = () => {
           <div className="loan-total">
             <label className="loan-label">
               <h3 className="loan-label-title">Total Disbursement Amount</h3>
-              <input
-                className="loan-input"
-                type="text" 
-                disabled
-                value={formatCurrency(totalDisbursementAmount)}
-              />
+              <div className="loan-label-content">
+                <input
+                  className="loan-input"
+                  type="text"
+                  disabled
+                  value={formatCurrency(totalDisbursementAmount)}
+                />
+                {user &&
+                  (user.role === "admin" || user.role === "loanAdmin") && (
+                    <button
+                      className="loan-edit-button"
+                      onClick={handleEditTotalDisbursementAmount}
+                    >
+                      Edit
+                    </button>
+                  )}
+              </div>
             </label>
           </div>
 
@@ -112,7 +264,7 @@ const Loan = () => {
               <label>
                 <input
                   type="checkbox"
-                  value={isUserAgreementFormChecked}
+                  checked={isUserAgreementFormChecked}
                   onChange={(e) =>
                     setIsUserAgreementFormChecked(!isUserAgreementFormChecked)
                   }

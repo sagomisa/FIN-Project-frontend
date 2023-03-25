@@ -29,6 +29,17 @@ function Sidebar() {
             >
               Loan
             </NavLink>
+            <AdminOnlyLink>
+              <NavLink
+                to="/applications"
+                className="sidebarListItem "
+                style={({ isActive }) => ({
+                  color: isActive ? "#f48634" : "var(--color-dark)",
+                })}
+              >
+                Loan History
+              </NavLink>
+            </AdminOnlyLink>
             <NavLink
               to="/gallery"
               className="sidebarListItem "

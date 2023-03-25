@@ -24,6 +24,7 @@ import OurTeam from "./pages/ourTeam/OurTeam";
 import Blogs from "./pages/blogs/Blogs";
 import TermsOfUse from "./pages/termsOfUse/TermsOfUse";
 import PrivacyPolicy from "./pages/privacyPolicy/PrivacyPolicy";
+import LoanHistory from "./pages/loanHistory/LoanHistory";
 import NotFound from "./components/notFound/NotFound";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
@@ -205,6 +206,14 @@ function App() {
             element={
               <Layout>
                 <Loan />
+              </Layout>
+            }
+          />
+          <Route
+            path="/applications"
+            element={
+              <Layout>
+                <LoanHistory />
               </Layout>
             }
           />

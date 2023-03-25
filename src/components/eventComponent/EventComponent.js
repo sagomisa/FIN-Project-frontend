@@ -48,7 +48,7 @@ const EventComponent = () => {
         <h1>Our Events</h1>
         <div id="events-section">
           <div className="up-event">
-            <h3>Upcoming Events</h3>
+            <h3>Upcoming Events</h3> 
             <div className="event">
               <div className="">
                   { getUpcomingEvents().length === 0 && <p>No upcoming events</p> }

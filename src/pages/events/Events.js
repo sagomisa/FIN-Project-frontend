@@ -177,6 +177,7 @@ const Events = () => {
           </div>
           <div className="upcoming-events">
             <h2>Upcoming Events</h2>
+            {getUpcomingEvents().length === 0 && <p>No upcoming events</p>}
             {getUpcomingEvents().map((event) => {
               return <EventCard event={event} key={event._id} />;
             })}
@@ -184,6 +185,7 @@ const Events = () => {
 
           <div className="past-events">
             <h2>Past Events</h2>
+            {getPastEvents().length === 0 && <p>No past events</p>}
             {getPastEvents().map((event) => {
               return <EventCard event={event} key={event._id} />;
             })}
