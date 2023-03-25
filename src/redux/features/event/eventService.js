@@ -23,7 +23,7 @@ const updateEvent = async (eventData) => {
 
 // Delete event
 const deleteEvent = async (id) => {
-  const response = await axios.delete(API_URL + "deleteEvent" + id);
+  const response = await axios.delete(API_URL + "deleteEvent/" + id);
   return response.data.message;
 };
 
