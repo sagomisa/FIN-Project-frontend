@@ -15,6 +15,12 @@ const createLoan = async (loanData) => {
   return response.data;
 };
 
+// Get update loan
+const updateLoan = async (loanData) => {
+  const response = await axios.patch(API_URL + "updateLoan", loanData);
+  return response.data;
+};
+
 //Delete Loan
 const deleteLoan = async (id) => {
   console.log(`id>>>>>>>>>${id}`);
@@ -26,6 +32,7 @@ const loanService = {
   getAllLoans,
   createLoan,
   deleteLoan,
+  updateLoan,
 };
 
 export default loanService;

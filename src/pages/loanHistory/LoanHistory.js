@@ -13,11 +13,22 @@ import {
 } from "../../redux/features/auth/filterSlice";
 import { confirmAlert } from "react-confirm-alert";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { deleteLoan, getAllLoans } from "../../redux/features/loan/loanSlice";
+import {
+  deleteLoan,
+  getAllLoans,
+  updateLoan,
+} from "../../redux/features/loan/loanSlice";
+import { BiEdit } from "react-icons/bi";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
+const loanFormState = {
+  status: "",
+};
 const LoanHistory = () => {
   useRedirectLoggedOutUser("/login/?path=applications");
 
+  const [openPopup, setOpenPopup] = useState(false);
+  const [loanForm, setLoanForm] = useState(loanFormState);
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState("");
@@ -91,6 +102,61 @@ const LoanHistory = () => {
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = filteredUsers.slice(itemOffset, endOffset);
 
+  const handleLoanFormChange = (e) => {
+    setLoanForm({
+      ...loanForm,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleLoanFormSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(updateLoan(loanFormState));
+
+    // Close the popup
+    setOpenPopup(false);
+  };
+
+  React.useEffect(() => {
+    // Reset the form
+    setLoanForm(loanFormState);
+  }, [openPopup]);
+
+  const eventFormPopup = () => {
+    return (
+      <div className="eventFormPopup">
+        <div className="eventFormPopup__content">
+          <div className="eventFormPopup__header">
+            <h2>Edit Loan</h2>
+            <span
+              className="eventFormPopup__closeBtn"
+              onClick={() => setOpenPopup(false)}
+            >
+              <AiOutlineCloseCircle size={20} />
+            </span>
+          </div>
+          <div className="eventFormPopup__body">
+            <form onSubmit={handleLoanFormSubmit}>
+              <div className="form-group">
+                <label htmlFor="title">Status</label>
+                <input
+                  type="text"
+                  name="title"
+                  id="title"
+                  value={loanForm.status}
+                  onChange={handleLoanFormChange}
+                />
+              </div>
+              <div className="form-group">
+                <button className="form-button">Done</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section>
       <div className="users">
@@ -146,6 +212,14 @@ const LoanHistory = () => {
                               onClick={() => confirmDelete(item._id)}
                             />
                           </span>
+                          <span>
+                            <BiEdit
+                              size={20}
+                              color="red"
+                              style={{ marginLeft: "10%" }}
+                              onClick={() => setOpenPopup(true)}
+                            />
+                          </span>
                         </td>
                         {/* <td>{item._id}</td> */}
                       </tr>
@@ -156,6 +230,7 @@ const LoanHistory = () => {
             )}
             <hr />
           </div>
+          {openPopup && eventFormPopup()}
         </div>
       </div>
     </section>

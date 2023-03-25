@@ -172,7 +172,7 @@ const Events = () => {
                 >
                   <FaPlus size={20} color="white" id="addIcon" />
                 </button>
-              </span>
+              </span> 
             </AdminOnlyLink>
           </div>
           <div className="upcoming-events">
