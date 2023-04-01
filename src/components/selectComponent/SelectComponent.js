@@ -12,6 +12,9 @@ const SelectComponent = () => {
   const handleChange = (event) => {
     setPlatform(event.target.value);
   };
+  const reset = () => {
+    setPlatform("");
+  };
 
   return (
     <div className="sort">
