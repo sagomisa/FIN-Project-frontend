@@ -149,6 +149,7 @@ const Profile = () => {
                         name="name"
                         value={profile?.name}
                         onChange={handleInputChange}
+                        disabled
                       />
                     </p>
                     <p>
