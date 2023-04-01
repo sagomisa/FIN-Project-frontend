@@ -1,10 +1,10 @@
 import React from "react";
 import TopSection from "../../components/top_section/TopSection";
 
-const Blogs = () => {
+const UsefulLinks = () => {
   return (
     <div>
-      <TopSection title="Blogs" />
+      <TopSection title="Useful Links" />
       <div
         className="container"
         style={{
@@ -14,7 +14,7 @@ const Blogs = () => {
           alignItems: "center",
         }}
       >
-        <h1>Welcome to Blogs Page!</h1>
+        <h1>Welcome to Useful Links Page!</h1>
         <h2 style={{ color: "var(--color-dark)" }}>
           This page is under construction!
         </h2>
@@ -23,4 +23,4 @@ const Blogs = () => {
   );
 };
 
-export default Blogs;
+export default UsefulLinks;

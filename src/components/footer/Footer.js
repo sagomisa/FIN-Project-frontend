@@ -13,7 +13,7 @@ function Footer() {
               <a href="/blogs">Blogs</a>
             </li>
             <li>
-              <a href="#">Useful Links</a>
+              <a href="/usefulLinks">Useful Links</a>
             </li>
             <li>
               <a href="/termsOfUse">Terms of Use</a>
@@ -26,18 +26,7 @@ function Footer() {
         </div>
         <div id="column3">
           <h2>Contact Us</h2>
-          {/* <div className="contact">
-            <div className="phone">
-              <i className="fa-solid fa-phone"></i>
-              <a href="tel:647-774-6542">647-774-6542</a>
-            </div>
-            <div className="address">
-              <i className="fa-solid fa-location-dot"></i>
-              <p>
-                2900 Eglinton Avenue East, Unit #203, Scarborough, ON M1J 2E4
-              </p>
-            </div>
-          </div> */}
+
           <div className="sm_icons">
             <i className="fa-brands fa-facebook"></i>
             <i className="fa-brands fa-linkedin"></i>

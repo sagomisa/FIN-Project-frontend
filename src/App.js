@@ -36,6 +36,7 @@ import {
   selectIsLoggedIn,
   selectUser,
 } from "./redux/features/auth/authSlice";
+import UsefulLinks from "./pages/usefulLinks/UsefulLinks";
 
 axios.defaults.withCredentials = true;
 
@@ -118,6 +119,14 @@ function App() {
             element={
               <Layout>
                 <PrivacyPolicy />
+              </Layout>
+            }
+          />
+          <Route
+            path="/usefulLinks"
+            element={
+              <Layout>
+                <UsefulLinks />
               </Layout>
             }
           />

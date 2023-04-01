@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
   return (
     <div>
       <TopSection title="Privacy Policy" />
-      <div className="container">
+      <div className="terms-container">
         <p>
           FIN Investments Inc. (“Company,” “we,” or “us”) respects your privacy
           and is committed to protecting it through this Privacy Policy.

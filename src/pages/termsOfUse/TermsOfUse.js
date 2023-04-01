@@ -1,11 +1,12 @@
 import React from "react";
 import TopSection from "../../components/top_section/TopSection";
+import "./TermsOfUse.css";
 
 const TermsOfUse = () => {
   return (
     <div>
       <TopSection title="Terms Of Use" />
-      <div className="container">
+      <div className="terms-container">
         <p>
           The following Terms of Use are entered into by and between You and FIN
           Investments Inc. (“Company”, “we”, or “us”). The following terms and
