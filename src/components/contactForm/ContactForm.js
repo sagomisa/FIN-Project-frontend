@@ -1,13 +1,37 @@
-import React from "react";
+import React, { useRef } from "react";
+import emailjs from "@emailjs/browser";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import SelectComponent from "../selectComponent/SelectComponent";
 import "./ContactForm.css";
+import { toast } from "react-toastify";
 
 const ContactForm = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_va68thy",
+        "template_zidur5j",
+        form.current,
+        "T33OFxy7pfGbxPl81"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          toast("Message Sent Successfully");
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
   return (
     <div id="contact">
-      <div className="contact-card"> 
-        <form>
+      <div className="contact-card">
+        <form ref={form} onSubmit={sendEmail}>
           <Box
             className="formBox"
             marginLeft="auto"

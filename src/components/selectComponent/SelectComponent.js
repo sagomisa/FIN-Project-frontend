@@ -37,13 +37,28 @@ const SelectComponent = () => {
                 Where did you hear about us?
               </em>
             </MenuItem>
-            <MenuItem id="menuItem" value={10} style={{ fontSize: "16px" }}>
+            <MenuItem
+              id="menuItem"
+              value={10}
+              style={{ fontSize: "16px" }}
+              name="platform"
+            >
               Google
             </MenuItem>
-            <MenuItem id="menuItem" value={20} style={{ fontSize: "16px" }}>
+            <MenuItem
+              id="menuItem"
+              value={20}
+              style={{ fontSize: "16px" }}
+              name="platform"
+            >
               LinkedIn
             </MenuItem>
-            <MenuItem id="menuItem" value={30} style={{ fontSize: "16px" }}>
+            <MenuItem
+              id="menuItem"
+              value={30}
+              style={{ fontSize: "16px" }}
+              name="platform"
+            >
               Facebook
             </MenuItem>
           </Select>
