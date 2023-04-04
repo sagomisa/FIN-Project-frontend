@@ -9,6 +9,7 @@ import {
 } from "../../redux/features/loan/loanSlice";
 import loanService from "../../redux/features/loan/loanService";
 import constantService from "../../redux/features/constant/constantService";
+import { toast } from "react-toastify";
 
 const Loan = () => {
   useRedirectLoggedOutUser("/login/?path=loan");
@@ -108,7 +109,102 @@ const Loan = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   if (loanAmount === 0 || !loanAmount) {
+  //     setLoanAmountError("Loan Amount is required.");
+  //     return;
+  //   }
+
+  //   if (loanAmount < 5000) {
+  //     setLoanAmountError(
+  //       `Loan Amount should be minimum ${formatCurrency(5000)}`
+  //     );
+  //     return;
+  //   }
+
+  //   if (loanAmountError) {
+  //     return;
+  //   }
+
+  //   if (isLoanAmountLessThanTotalDisbursementAmount(loanAmount)) {
+  //     setLoanAmountError(
+  //       `Loan Amount should be less than ${formatCurrency(
+  //         totalDisbursementAmount
+  //       )}`
+  //     );
+  //     return;
+  //   }
+
+  //   // Get all loans from backend
+  //   loanService
+  //     .getAllLoans()
+  //     .then((response) => {
+  //       response.forEach((loan) => {
+  //         setTotalLoanFromBackend((prev) => prev + loan.amount);
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+
+  //   // Check if total loan amount is greater than total disbursement amount
+  //   if (totalLoanFromBackend + loanAmount > totalDisbursementAmount) {
+  //     setLoanAmountError(
+  //       `Loan Amount should be less than ${formatCurrency(
+  //         totalDisbursementAmount - totalLoanFromBackend
+  //       )}`
+  //     );
+  //     return;
+  //   }
+  //   console.log(`totalDisbursementAmount2>>>>>>>${totalDisbursementAmount}`);
+  //   console.log(`loanAmount2>>>>>>>${loanAmount}`);
+
+  //   // Update total disbursement amount
+  //   constantService
+  //     .updateConstantValue(
+  //       "totalDisbursementAmount",
+  //       parseInt(totalDisbursementAmount - loanAmount)
+  //     )
+  //     .then((response) => {
+  //       console.log("Response: ", response);
+  //       // Create loan
+  //       dispatch(
+  //         createLoan({
+  //           id: user._id,
+  //           amount: loanAmount,
+  //         })
+  //       );
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+
+  //   // Get constant by key and set total disbursement amount
+  //   constantService
+  //     .getAllConstants()
+  //     .then((response) => {
+  //       response.forEach((constant) => {
+  //         if (constant.key === "totalDisbursementAmount") {
+  //           setTotalDisbursementAmount(parseInt(constant.value));
+  //         }
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+
+  //   // Reset form
+  //   setIsUserAgreementFormChecked(!isUserAgreementFormChecked);
+  //   setLoanAmountError("");
+  //   setLoanAmount(0);
+
+  //   // Reset loan state
+  //   dispatch(resetLoanState());
+  // };
+
+  const handleSubmit2 = (e) => {
     e.preventDefault();
 
     if (loanAmount === 0 || !loanAmount) {
@@ -135,66 +231,18 @@ const Loan = () => {
       );
       return;
     }
-
-    // Get all loans from backend
     loanService
-      .getAllLoans()
+      .createLoan({ id: user._id, amount: loanAmount })
       .then((response) => {
-        response.forEach((loan) => {
-          setTotalLoanFromBackend((prev) => prev + loan.amount);
-        });
+        if (response.message === "You already have a loan") {
+          toast.error(response.message);
+        } else {
+          toast.success(response.message);
+        }
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error.message);
       });
-
-    // Check if total loan amount is greater than total disbursement amount
-    if (totalLoanFromBackend + loanAmount > totalDisbursementAmount) {
-      setLoanAmountError(
-        `Loan Amount should be less than ${formatCurrency(
-          totalDisbursementAmount - totalLoanFromBackend
-        )}`
-      );
-      return;
-    }
-    console.log(`totalDisbursementAmount2>>>>>>>${totalDisbursementAmount}`);
-    console.log(`loanAmount2>>>>>>>${loanAmount}`);
-    
-    
-    // Update total disbursement amount
-    constantService
-      .updateConstantValue(
-        "totalDisbursementAmount",
-        parseInt(totalDisbursementAmount - loanAmount)
-      )
-      .then((response) => {
-        console.log("Response: ", response);
-        // Create loan
-        dispatch(
-          createLoan({
-            id: user._id,
-            amount: loanAmount,
-          })
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    // Get constant by key and set total disbursement amount
-    constantService
-      .getAllConstants()
-      .then((response) => {
-        response.forEach((constant) => {
-          if (constant.key === "totalDisbursementAmount") {
-            setTotalDisbursementAmount(parseInt(constant.value));
-          }
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
     // Reset form
     setIsUserAgreementFormChecked(!isUserAgreementFormChecked);
     setLoanAmountError("");
@@ -281,7 +329,7 @@ const Loan = () => {
           </div>
 
           {isUserAgreementFormChecked ? (
-            <form className="loan-form" onSubmit={handleSubmit}>
+            <form className="loan-form" onSubmit={handleSubmit2}>
               <label className="loan-label">
                 <h3 className="loan-label-title">Loan Amount</h3>
                 <input

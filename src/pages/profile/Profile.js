@@ -166,12 +166,14 @@ const Profile = () => {
                       <label>Phone:</label>
                       <input
                         type="text"
-                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                        pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
                         name="phone"
                         value={profile?.phone}
                         onChange={handleInputChange}
                       />
-                      <label style={{color:"lightgray", fontSize: "12px"}}>Required format is (123-456-7890)</label>
+                      <label style={{ color: "lightgray", fontSize: "12px" }}>
+                        Required format is (1234567890)
+                      </label>
                     </p>
                     <p>
                       <label>Bio:</label>
