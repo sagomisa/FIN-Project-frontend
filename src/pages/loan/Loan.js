@@ -63,6 +63,8 @@ const Loan = () => {
         totalLoanAmount += loan.amount;
       });
 
+      console.log(`totalLoanAmount>>>>>>>>${totalLoanAmount}`);
+
       // Wait for the total amount of loans to be fetched from backend
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -73,11 +75,13 @@ const Loan = () => {
         );
         return;
       }
-
+      console.log(
+        `newTotalDisbursementAmount>>>>${newTotalDisbursementAmount}`
+      );
       // Update total disbursement amount
       const response = await constantService.updateConstantValue(
         "totalDisbursementAmount",
-        newTotalDisbursementAmount - totalLoanAmount
+        newTotalDisbursementAmount
       );
 
       // Wait for the total disbursement amount to be updated
@@ -153,27 +157,29 @@ const Loan = () => {
       );
       return;
     }
-
+    console.log(`totalDisbursementAmount2>>>>>>>${totalDisbursementAmount}`);
+    console.log(`loanAmount2>>>>>>>${loanAmount}`);
+    
+    
     // Update total disbursement amount
     constantService
       .updateConstantValue(
         "totalDisbursementAmount",
-        totalDisbursementAmount - loanAmount
+        parseInt(totalDisbursementAmount - loanAmount)
       )
       .then((response) => {
         console.log("Response: ", response);
+        // Create loan
+        dispatch(
+          createLoan({
+            id: user._id,
+            amount: loanAmount,
+          })
+        );
       })
       .catch((error) => {
         console.log(error);
       });
-
-    // Create loan
-    dispatch(
-      createLoan({
-        id: user._id,
-        amount: loanAmount,
-      })
-    );
 
     // Get constant by key and set total disbursement amount
     constantService

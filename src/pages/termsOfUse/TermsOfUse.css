@@ -1,5 +1,8 @@
 .terms-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2% 0;
+  padding: 2%;
+}
+.terms-container p {
+  text-align: justify;
 }

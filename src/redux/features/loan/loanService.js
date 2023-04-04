@@ -11,6 +11,7 @@ const getAllLoans = async () => {
 
 // Create a loan
 const createLoan = async (loanData) => {
+  console.log(`loanData>>>>>${JSON.stringify(loanData)}`);
   const response = await axios.post(API_URL + "createLoan", loanData);
   return response.data;
 };

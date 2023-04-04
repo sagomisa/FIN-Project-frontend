@@ -16,6 +16,8 @@ const getConstantByKey = async (key) => {
 };
 
 const updateConstantValue = async (key, value) => {
+  console.log(`key>>>>>>${key}`);
+  console.log(`value>>>>>>${value}`);
   const response = await axios.put(API_URL + "updateConstantValue", {
     key,
     value,
