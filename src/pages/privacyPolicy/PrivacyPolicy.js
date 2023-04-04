@@ -278,9 +278,9 @@ const PrivacyPolicy = () => {
         <h1>Questions, concerns or requests for access</h1>
         <p>
           If you have any questions or concerns regarding our Privacy Policy,
-          please contact us as follows: fininvestmentsinc@gmail.com Policy Last
-          Updated: January 26, 2023
+          please contact us as follows: fininvestmentsinc@gmail.com
         </p>
+        <p>Policy Last Updated: January 26, 2023</p>
       </div>
     </div>
   );

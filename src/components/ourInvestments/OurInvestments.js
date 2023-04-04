@@ -25,7 +25,7 @@ const OurInvestments = () => {
           Please log in to access our investment portfolio on a granular level.
         </p>
         <br />
-        <Link to="/login">
+        <Link to="/our-investments">
           <button className="--btn --btn-primary --btn-lg">Login</button>
         </Link>
       </div>

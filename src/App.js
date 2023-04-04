@@ -20,7 +20,6 @@ import Gallery from "./pages/gallery/Gallery";
 import Teams from "./pages/teams/Teams";
 import Events from "./pages/events/Events";
 import Deposit from "./pages/deposit/Deposit";
-import OurTeam from "./pages/ourTeam/OurTeam";
 import Blogs from "./pages/blogs/Blogs";
 import TermsOfUse from "./pages/termsOfUse/TermsOfUse";
 import PrivacyPolicy from "./pages/privacyPolicy/PrivacyPolicy";
@@ -82,14 +81,7 @@ function App() {
               </Layout>
             }
           />
-          <Route
-            path="/our-team"
-            element={
-              <Layout>
-                <OurTeam />
-              </Layout>
-            }
-          />
+
           <Route
             path="/blogs"
             element={

@@ -23,7 +23,7 @@ const OurTeamsComponent = () => {
         <br />
         <p>Please log in to access our team.</p>
         <br />
-        <Link to="/login">
+        <Link to="/teams">
           <button className="--btn --btn-primary --btn-lg">Login</button>
         </Link>
       </div>

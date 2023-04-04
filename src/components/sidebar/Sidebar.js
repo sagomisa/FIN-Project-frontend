@@ -67,6 +67,15 @@ function Sidebar() {
             >
               Events & Discussion
             </NavLink>
+            <NavLink
+              to="/our-investments"
+              className="sidebarListItem "
+              style={({ isActive }) => ({
+                color: isActive ? "#f48634" : "var(--color-dark)",
+              })}
+            >
+              Our Investments
+            </NavLink>
             <AdminOnlyLink>
               <NavLink
                 to="/users"

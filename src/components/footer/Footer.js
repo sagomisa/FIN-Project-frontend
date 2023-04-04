@@ -29,7 +29,6 @@ function Footer() {
 
           <div className="sm_icons">
             <i className="fa-brands fa-facebook"></i>
-            <i className="fa-brands fa-linkedin"></i>
           </div>
         </div>
       </div>
