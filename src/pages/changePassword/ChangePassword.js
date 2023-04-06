@@ -34,7 +34,9 @@ const ChangePassword = () => {
   const [formData, setFormData] = useState(initialState);
   const { oldPassword, password, password2 } = formData;
 
-  const { isLoading, user } = useSelector((state) => state.auth);
+  const { isLoading, user, changePasswordSuccess } = useSelector(
+    (state) => state.auth
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,6 +45,8 @@ const ChangePassword = () => {
   const [num, setNum] = useState(false);
   const [specialChar, setSpecialChar] = useState(false);
   const [pwLength, setPwLength] = useState(false);
+  const [userData, setUserData] = useState();
+  const [emailData, setEmailData] = useState();
 
   const timesIcon = <FaTimes color="red" size={15} />;
   const checkIcon = <BsCheck2All color="green" size={15} />;
@@ -116,25 +120,48 @@ const ChangePassword = () => {
       return toast.error("Please add at least one character");
     }
 
-    const userData = {
+    setUserData({
       oldPassword,
       password,
-    };
+    });
 
-    const emailData = {
+    setEmailData({
       subject: "Password Changed - Fin Investments Inc.",
       send_to: user.email,
       reply_to: "noreply@fininvestmentsinc",
       template: "changePassword",
       url: "/forgot",
-    };
+    });
 
-    await dispatch(changePassword(userData));
-    await dispatch(sendAutomatedEmail(emailData));
-    await dispatch(logout());
-    await dispatch(RESET(userData));
-    navigate("/login");
+    await dispatch(
+      changePassword({
+        oldPassword,
+        password,
+      })
+    );
+    // await dispatch(sendAutomatedEmail(emailData));
+    // await dispatch(logout());
+    // await dispatch(RESET(userData));
+    // navigate("/login");
   };
+
+  useEffect(() => {
+    async function sendEmail() {
+      await dispatch(sendAutomatedEmail(emailData));
+      await dispatch(logout());
+      await dispatch(RESET(userData));
+      navigate("/login");
+    }
+    if (changePasswordSuccess) {
+      sendEmail();
+      console.log(`issuccess1121q2>>${changePasswordSuccess}`);
+    }
+    console.log(`issuccess>>${changePasswordSuccess}`);
+  }, [changePasswordSuccess]);
+
+  useEffect(() => {
+    dispatch(RESET());
+  });
 
   return (
     <>

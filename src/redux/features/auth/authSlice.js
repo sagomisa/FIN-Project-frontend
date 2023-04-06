@@ -14,6 +14,7 @@ const initialState = {
   membersCount: 0,
   loanAdminCount: 0,
   adminCount: 0,
+  changePasswordSuccess: false,
 };
 
 //Register User
@@ -270,6 +271,7 @@ const authSlice = createSlice({
       state.isSuccess = false;
       state.isLoading = false;
       state.message = "";
+      state.changePasswordSuccess = false;
     },
     CALC_VERIFIED_USER(state, action) {
       const array = [];
@@ -484,12 +486,15 @@ const authSlice = createSlice({
       .addCase(changePassword.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.changePasswordSuccess = true;
         state.message = action.payload;
         toast.success(action.payload);
       })
       .addCase(changePassword.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
+        state.isSuccess = false;
+        state.changePasswordSuccess = false;
         state.message = action.payload;
         toast.error(action.payload);
       })
