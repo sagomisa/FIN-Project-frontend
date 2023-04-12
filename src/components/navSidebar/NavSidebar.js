@@ -39,19 +39,19 @@ const NavSidebar = ({ isOpen, toggle }) => {
         </Icon>
         <SidebarWrapper>
           <SidebarMenu>
-            <SidebarLink to="about" onClick={toggle}>
+            <SidebarLink to="/#about" onClick={toggle}>
               About
             </SidebarLink>
-            <SidebarLink to="events" onClick={toggle}>
+            <SidebarLink to="/#events" onClick={toggle}>
               Events
             </SidebarLink>
-            <SidebarLink to="investment" onClick={toggle}>
+            <SidebarLink to="/#investment" onClick={toggle}>
               Our Investments
             </SidebarLink>
-            <SidebarLink to="teams" onClick={toggle}>
+            <SidebarLink to="/#teams" onClick={toggle}>
               Our Team
             </SidebarLink>
-            <SidebarLink to="contact" onClick={toggle}>
+            <SidebarLink to="/#contact" onClick={toggle}>
               Contact us
             </SidebarLink>
             <ShowOnLogin>
