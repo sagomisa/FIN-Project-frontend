@@ -1,0 +1,18 @@
+.mobsidebarList {
+  display: flex;
+}
+.mobSidebarListItem {
+  padding: 2%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  font-size: 16px;
+}
+
+@media screen and (max-width: 768px) {
+  .mobileSidebar {
+    display: flex;
+  }
+}

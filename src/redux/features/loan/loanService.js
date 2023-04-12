@@ -29,11 +29,19 @@ const deleteLoan = async (id) => {
 
   return response.data.message;
 };
+
+// Get update status
+const changeLoanStatus = async (loanData) => {
+  const response = await axios.patch(API_URL + "changeLoanStatus", loanData);
+  return response.data;
+};
+
 const loanService = {
   getAllLoans,
   createLoan,
   deleteLoan,
   updateLoan,
+  changeLoanStatus,
 };
 
 export default loanService;

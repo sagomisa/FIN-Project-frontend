@@ -14,12 +14,14 @@ import {
 import { confirmAlert } from "react-confirm-alert";
 import Sidebar from "../../components/sidebar/Sidebar";
 import {
+  changeLoanStatus,
   deleteLoan,
   getAllLoans,
   updateLoan,
 } from "../../redux/features/loan/loanSlice";
 import { BiEdit } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import StatusSelectComponent from "../../components/statusSelectComponent/StatusSelectComponent";
 
 const loanFormState = {
   status: "",
@@ -137,7 +139,7 @@ const LoanHistory = () => {
           </div>
           <div className="eventFormPopup__body">
             <form onSubmit={handleLoanFormSubmit}>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label htmlFor="title">Status</label>
                 <input
                   type="text"
@@ -146,7 +148,8 @@ const LoanHistory = () => {
                   value={loanForm.status}
                   onChange={handleLoanFormChange}
                 />
-              </div>
+              </div> */}
+              <StatusSelectComponent />
               <div className="form-group">
                 <button className="form-button">Done</button>
               </div>
@@ -155,6 +158,18 @@ const LoanHistory = () => {
         </div>
       </div>
     );
+  };
+
+  const handleTableClick = async (item) => {
+    // const loanData = {
+    //   userId: item.user?.id,
+    //   loanId: item.id,
+    //   loanAmount: item.amount,
+    //   loanStatus: "Approved", //TODO: send status from selectedDropdown
+    // };
+    // console.log(loanData);
+    // await dispatch(changeLoanStatus(loanData));
+    console.log("clicked");
   };
 
   return (
@@ -189,6 +204,7 @@ const LoanHistory = () => {
                     <th>Loan Amount</th>
                     <th>Date</th>
                     <th>Status</th>
+                    <th>Change status</th>
                     <th>Action</th>
                     {/* <th>ID</th> */}
                   </tr>
@@ -196,13 +212,16 @@ const LoanHistory = () => {
                 <tbody>
                   {allLoans.map((item, index) => {
                     return (
-                      <tr key={index}>
+                      <tr key={index} onClick={() => console.log("clicked")}>
                         <td>{index + 1}</td>
                         <td>{item.user?.name}</td>
                         <td>{item.user?.email}</td>
                         <td>{formatCurrency(item.amount)}</td>
                         <td>{formatDate(item.createdAt)}</td>
                         <td>{item.status}</td>
+                        <td>
+                          <StatusSelectComponent />
+                        </td>
 
                         <td>
                           <span>

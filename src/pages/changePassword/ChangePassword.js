@@ -22,6 +22,7 @@ import {
 } from "../../redux/features/auth/authService";
 import { FaTimes } from "react-icons/fa";
 import { BsCheck2All } from "react-icons/bs";
+import MobileSidebar from "../../components/mobileSidebar/MobileSidebar";
 
 const initialState = {
   oldPassword: "",
@@ -155,6 +156,7 @@ const ChangePassword = () => {
     if (changePasswordSuccess) {
       sendEmail();
       console.log(`issuccess1121q2>>${changePasswordSuccess}`);
+      console.log(`useremail>>>>>>${user.email}`);
     }
     console.log(`issuccess>>${changePasswordSuccess}`);
   }, [changePasswordSuccess]);

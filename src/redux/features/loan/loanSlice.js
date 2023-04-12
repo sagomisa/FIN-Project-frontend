@@ -47,6 +47,24 @@ export const deleteLoan = createAsyncThunk("loan/deleteLoan", async (id) => {
   return response;
 });
 
+// change Loan status
+export const changeLoanStatus = createAsyncThunk(
+  "loan/changeLoanStatus",
+  async (loanData, thunkAPI) => {
+    try {
+      return await loanService.changeLoanStatus(loanData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const loanSlice = createSlice({
   name: "loan",
   initialState,
@@ -118,6 +136,23 @@ const loanSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
       toast.error("Error deleting loan");
+    },
+    // change loan status
+
+    [changeLoanStatus.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [changeLoanStatus.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.message = action.payload;
+      toast.success(action.payload);
+    },
+    [changeLoanStatus.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      toast.error(action.payload);
     },
   },
 });
