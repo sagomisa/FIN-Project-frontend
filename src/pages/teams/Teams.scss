@@ -1,0 +1,92 @@
+.teamsContainer{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .team-list {
+    color: #333;
+    margin: 0;
+      padding: 3% 5%;
+      width: 100%;
+      overflow-y: scroll;
+      height: 80vh;
+    .table {
+      padding: 5px;
+      width: 100%;
+      overflow-x: auto;
+  
+      .search {
+        width: 100%;
+        max-width: 300px;
+      }
+        .eachTeamContainer{
+            gap: 15px;
+        }
+        table:hover{
+            transform: scale(1.05);
+        }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 1.4rem;
+        display: inline-block;
+        overflow: hidden;
+        transition: all .2s ease-in-out;
+        
+        tbody {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: var(--box-shadow);
+            background-color: #fff;
+            width: 100%;
+            padding: 10% 0;
+            
+        }
+        
+        tr {
+          vertical-align: top;
+          text-align: left;
+          padding: 8px;
+  
+          &.icons {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            > * {
+              margin-right: 7px;
+              cursor: pointer;
+              vertical-align: middle;
+              align-self: center;
+            }
+          }
+
+          &img{
+              border-radius: 50%;
+          }
+        }
+        
+  
+        
+        
+      }
+    }
+  }
+  
+  .sort {
+    label {
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin: 0 5px;
+    }
+    select {
+      font-size: 1.6rem;
+      font-weight: 300;
+      padding: 4px 8px;
+      margin: 0 5px 0 0;
+      border: none;
+      border-bottom: 2px solid #777;
+      outline: none;
+    }
+  }
