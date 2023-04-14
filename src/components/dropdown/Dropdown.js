@@ -99,11 +99,8 @@ const Dropdown = () => {
       >
         <MenuItem onClick={handleClose}>
           <ShowDashboard>
-            <NavDashboard to="/dashboard">Go to Dashboard</NavDashboard>
+            <NavDashboard to="/profile">Go to Dashboard</NavDashboard>
           </ShowDashboard>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <NavDashboard to="/profile">Profile</NavDashboard>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <NavDashboard onClick={logoutUser}>Logout</NavDashboard>

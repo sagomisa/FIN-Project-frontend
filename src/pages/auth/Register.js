@@ -124,15 +124,8 @@ const Register = () => {
     await dispatch(register(userData));
     //When user is registered, this action is fired (user will get an email)
     await dispatch(sendVerificationEmail());
+    // navigate("/login");
   };
-
-  // useEffect(() => {
-  //   if (isSuccess && isLoggedIn) {
-  //     navigate("/dashboard");
-  //   }
-
-  //   dispatch(RESET());
-  // }, [isLoggedIn, isSuccess, dispatch, navigate]);
 
   return (
     <div className={`container ${styles.auth}`}>

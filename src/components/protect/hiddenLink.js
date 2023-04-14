@@ -4,6 +4,7 @@ import {
   selectIsLoggedIn,
   selectUser,
 } from "../../redux/features/auth/authSlice";
+import Notification from "../notification/Notification";
 
 export const ShowOnLogin = ({ children }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -48,4 +49,14 @@ export const LoanAdminLink = ({ children }) => {
     return <>{children}</>;
   }
   return null;
+};
+
+export const VerifiedOnlyLink = ({ children }) => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const user = useSelector(selectUser);
+
+  if (isLoggedIn && user?.isVerified === true) {
+    return <>{children}</>;
+  }
+  return <Notification />;
 };

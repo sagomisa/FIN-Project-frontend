@@ -56,6 +56,7 @@ const LoanHistory = () => {
       const user = users.find((user) => user._id === loan.user);
       return { ...loan, user };
     });
+
     return allLoans;
   };
 
@@ -161,15 +162,16 @@ const LoanHistory = () => {
   };
 
   const handleTableClick = async (item) => {
-    // const loanData = {
-    //   userId: item.user?.id,
-    //   loanId: item.id,
-    //   loanAmount: item.amount,
-    //   loanStatus: "Approved", //TODO: send status from selectedDropdown
-    // };
-    // console.log(loanData);
-    // await dispatch(changeLoanStatus(loanData));
-    console.log("clicked");
+    console.log("item ----->>>>", item);
+    const loanData = {
+      userId: item.user?._id,
+      loanId: item._id,
+      loanAmount: item.amount,
+      loanStatus: "Approved", //TODO: send status from selectedDropdown
+    };
+    console.log(loanData);
+    console.log(">>>>>>>>>>>>>>>>clicked");
+    await dispatch(changeLoanStatus(loanData));
   };
 
   return (
@@ -211,8 +213,9 @@ const LoanHistory = () => {
                 </thead>
                 <tbody>
                   {allLoans.map((item, index) => {
+                    // console.log(`fetchdata>>>${JSON.stringify(item)}`);
                     return (
-                      <tr key={index} onClick={() => console.log("clicked")}>
+                      <tr key={index} onClick={() => handleTableClick(item)}>
                         <td>{index + 1}</td>
                         <td>{item.user?.name}</td>
                         <td>{item.user?.email}</td>

@@ -56,7 +56,7 @@ const NavSidebar = ({ isOpen, toggle }) => {
             </SidebarLink>
             <ShowOnLogin>
               <ShowDashboard>
-                <SideDashboard to="/dashboard">Go to Dashboard</SideDashboard>
+                <SideDashboard to="/profile">Go to Dashboard</SideDashboard>
               </ShowDashboard>
             </ShowOnLogin>
             <NavbarGreeting>

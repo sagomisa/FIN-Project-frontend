@@ -53,7 +53,7 @@ const Navbar = ({ toggle }) => {
     }
 
     if (
-      location.pathname === "/dashboard" ||
+      location.pathname === "/profile" ||
       location.pathname === "/events" ||
       location.pathname === "/teams"
     ) {

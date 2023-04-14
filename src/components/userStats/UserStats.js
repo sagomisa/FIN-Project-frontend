@@ -28,7 +28,7 @@ const UserStats = () => {
 
   return (
     <div className="user-summary">
-      {/* <h3 className="--mt">User Stats</h3>
+      <h3 className="--mt">User Stats</h3>
       <div className="info-summary">
         <InfoBox
           icon={icon}
@@ -40,19 +40,19 @@ const UserStats = () => {
           icon={icon}
           title={"Members"}
           count={membersCount}
-          bgColor="card2"
+          bgColor="card1"
         />
         <InfoBox
           icon={icon}
           title={"Loan Admin"}
           count={loanAdminCount}
-          bgColor="card3"
+          bgColor="card1"
         />
         <InfoBox
           icon={icon}
           title={"Admin"}
           count={adminCount}
-          bgColor="card4"
+          bgColor="card1"
         />
         <InfoBox
           icon={icon}
@@ -64,9 +64,9 @@ const UserStats = () => {
           icon={icon}
           title={"Unverified Users"}
           count={unverifiedUsers}
-          bgColor="card2"
+          bgColor="card1"
         />
-      </div> */}
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 .profile {
     .card {
       width: 100%;
-      max-width: 50%;
+      
       padding: 1rem;
       border: 1px solid #030b6b;
     }
@@ -16,8 +16,8 @@
       margin-bottom: 1rem;
   
       & img {
-        width: 200px;
-        height: 200px;
+        width: 100px;
+        height: 20%;
         border: 2px solid #fff;
         border-radius: 50%;
       }
@@ -64,3 +64,39 @@
     justify-content: center;
     align-items: center;
   }
+
+  
+  
+  
+  // Break points map 
+  $breakpoints: (
+    "xs": "max-width: 575.98px",
+    "sm": "(min-width: 576px) and (max-width: 767.98px)",
+    "md": "(min-width: 768px) and (max-width: 991.98px)",
+  );
+
+  @mixin breakpoint($user-value) {
+    $my-map: map-get($breakpoints, $user-value);
+    @if $my-map {
+      @media (#{my-map}) {
+        @content;
+      }
+    } @else {
+      @error "Oopps, seems like the breakpoint #{$user-value} isn't defined yet"
+    }
+  };
+
+profile {
+  .card{
+    .profile-photo{
+      & img {
+        @include breakpoint(xs){
+          width: 100px;
+          height: 100px;
+        }
+      }
+    }
+  }
+}
+  
+
