@@ -36,6 +36,7 @@ import {
   selectUser,
 } from "./redux/features/auth/authSlice";
 import UsefulLinks from "./pages/usefulLinks/UsefulLinks";
+import { VerifiedOnlyLink } from "./components/protect/hiddenLink";
 
 axios.defaults.withCredentials = true;
 
@@ -69,7 +70,9 @@ function App() {
             path="/our-investments"
             element={
               <Layout>
-                <OurInvestment />
+                <VerifiedOnlyLink>
+                  <OurInvestment />
+                </VerifiedOnlyLink>
               </Layout>
             }
           />
@@ -154,19 +157,14 @@ function App() {
               </Layout>
             }
           />
-          <Route
-            path="/loginWithCode/:email"
-            element={
-              <Layout>
-                <LoginWithCode />
-              </Layout>
-            }
-          />
+
           <Route
             path="/profile"
             element={
               <Layout>
-                <Profile />
+                <VerifiedOnlyLink>
+                  <Profile />
+                </VerifiedOnlyLink>
               </Layout>
             }
           />
@@ -174,7 +172,9 @@ function App() {
             path="/changePassword"
             element={
               <Layout>
-                <ChangePassword />
+                <VerifiedOnlyLink>
+                  <ChangePassword />
+                </VerifiedOnlyLink>
               </Layout>
             }
           />
@@ -190,7 +190,9 @@ function App() {
             path="/users"
             element={
               <Layout>
-                <UserList />
+                <VerifiedOnlyLink>
+                  <UserList />
+                </VerifiedOnlyLink>
               </Layout>
             }
           />
@@ -198,7 +200,9 @@ function App() {
             path="/dashboard/:path?"
             element={
               <Layout>
-                <Dashboard />
+                <VerifiedOnlyLink>
+                  <Dashboard />
+                </VerifiedOnlyLink>
               </Layout>
             }
           />
@@ -206,7 +210,9 @@ function App() {
             path="/loan"
             element={
               <Layout>
-                <Loan />
+                <VerifiedOnlyLink>
+                  <Loan />
+                </VerifiedOnlyLink>
               </Layout>
             }
           />
@@ -214,7 +220,9 @@ function App() {
             path="/applications"
             element={
               <Layout>
-                <LoanHistory />
+                <VerifiedOnlyLink>
+                  <LoanHistory />
+                </VerifiedOnlyLink>
               </Layout>
             }
           />
@@ -222,7 +230,9 @@ function App() {
             path="/deposit"
             element={
               <Layout>
-                <Deposit />
+                <VerifiedOnlyLink>
+                  <Deposit />
+                </VerifiedOnlyLink>
               </Layout>
             }
           />
@@ -230,7 +240,9 @@ function App() {
             path="/gallery"
             element={
               <Layout>
-                <Gallery />
+                <VerifiedOnlyLink>
+                  <Gallery />
+                </VerifiedOnlyLink>
               </Layout>
             }
           />
@@ -238,7 +250,9 @@ function App() {
             path="/teams"
             element={
               <Layout>
-                <Teams />
+                <VerifiedOnlyLink>
+                  <Teams />
+                </VerifiedOnlyLink>
               </Layout>
             }
           />
@@ -246,7 +260,9 @@ function App() {
             path="/events"
             element={
               <Layout>
-                <Events />
+                <VerifiedOnlyLink>
+                  <Events />
+                </VerifiedOnlyLink>
               </Layout>
             }
           />

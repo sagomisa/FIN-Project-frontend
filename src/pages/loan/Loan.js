@@ -41,6 +41,7 @@ const Loan = () => {
     } else if (amount > 10000) {
       return `Loan Amount should be maximum ${formatCurrency(10000)}`;
     }
+
     return "";
   };
 
@@ -334,7 +335,8 @@ const Loan = () => {
                 <h3 className="loan-label-title">Loan Amount</h3>
                 <input
                   className="loan-input"
-                  type="text"
+                  type="number"
+                  pattern="[0-9]*"
                   value={loanAmount}
                   onChange={(e) => setLoanAmount(e.target.value)}
                   required

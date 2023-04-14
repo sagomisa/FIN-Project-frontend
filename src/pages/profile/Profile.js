@@ -6,6 +6,7 @@ import Card from "../../components/card/Card";
 import Loader from "../../components/loader/Loader";
 import Notification from "../../components/notification/Notification";
 import Sidebar from "../../components/sidebar/Sidebar";
+import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
 import {
   getUser,
   selectUser,
@@ -25,6 +26,7 @@ export const shortenText = (text, n) => {
 };
 
 const Profile = () => {
+  useRedirectLoggedOutUser("/login");
   const dispatch = useDispatch();
 
   const { isLoading, isLoggedIn, isSuccess, message, user } = useSelector(

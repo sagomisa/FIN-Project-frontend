@@ -44,8 +44,10 @@
 }
 
 @media screen and (max-width: 768px) {
+  .sidebar {
+    width: 35%;
+  }
   .sidebarListItem {
-    display: flex;
-    flex-direction: row;
+    font-size: 12px;
   }
 }
