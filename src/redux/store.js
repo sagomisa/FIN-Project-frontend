@@ -4,6 +4,7 @@ import emailReducer from "../redux/features/email/emailSlice";
 import filterReducer from "../redux/features/auth/filterSlice";
 import loanReducer from "../redux/features/loan/loanSlice";
 import eventReducer from "../redux/features/event/eventSlice";
+import depositReducer from "../redux/features/deposit/depositSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     filter: filterReducer,
     loan: loanReducer,
     event: eventReducer,
+    deposit: depositReducer,
   },
 });

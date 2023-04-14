@@ -8,19 +8,28 @@ function Sidebar() {
       <div className="sidebar">
         <div className="sidebarWrapper">
           <div className="sidebarMenu">
-            <NavLink to="/dashboard" className="link">
-              <h3 className="sidebarTitle active">Dashboard</h3>
-            </NavLink>
+            
             <ul className="sidebarList">
               <NavLink
-                to="/deposit"
+                to="/profile"
                 className="sidebarListItem "
                 style={({ isActive }) => ({
                   color: isActive ? "#f48634" : "var(--color-dark)",
                 })}
               >
-                Deposit
+                Profile
               </NavLink>
+              <AdminOnlyLink>
+                <NavLink
+                  to="/deposit"
+                  className="sidebarListItem "
+                  style={({ isActive }) => ({
+                    color: isActive ? "#f48634" : "var(--color-dark)",
+                  })}
+                >
+                  Deposit
+                </NavLink>
+              </AdminOnlyLink>
               <NavLink
                 to="/loan"
                 className="sidebarListItem "
@@ -88,15 +97,7 @@ function Sidebar() {
                   Users
                 </NavLink>
               </AdminOnlyLink>
-              <NavLink
-                to="/profile"
-                className="sidebarListItem "
-                style={({ isActive }) => ({
-                  color: isActive ? "#f48634" : "var(--color-dark)",
-                })}
-              >
-                Profile
-              </NavLink>
+
               <NavLink
                 to="/changePassword"
                 className="sidebarListItem "

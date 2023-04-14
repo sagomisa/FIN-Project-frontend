@@ -14,7 +14,6 @@ import ChangePassword from "./pages/changePassword/ChangePassword";
 import Layout from "./components/layout/Layout";
 import UserList from "./pages/userList/UserList";
 import OurInvestment from "./pages/ourInvestment/OurInvestment";
-import Dashboard from "./pages/dashboard/Dashboard";
 import Loan from "./pages/loan/Loan";
 import Gallery from "./pages/gallery/Gallery";
 import Teams from "./pages/teams/Teams";
@@ -159,7 +158,7 @@ function App() {
           />
 
           <Route
-            path="/profile"
+            path="/profile/:path?"
             element={
               <Layout>
                 <VerifiedOnlyLink>
@@ -196,16 +195,7 @@ function App() {
               </Layout>
             }
           />
-          <Route
-            path="/dashboard/:path?"
-            element={
-              <Layout>
-                <VerifiedOnlyLink>
-                  <Dashboard />
-                </VerifiedOnlyLink>
-              </Layout>
-            }
-          />
+
           <Route
             path="/loan"
             element={

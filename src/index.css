@@ -335,7 +335,7 @@ li {
 .--btn-secondary {
   color: #fff;
   border: 1px solid #fff;
-  background: var(--color-dark);
+  background: var(--color-secondary);
 }
 .--btn-danger {
   color: #fff;
@@ -531,4 +531,16 @@ a:hover {
   width: 100%;
   height: 2px;
   background-color: #fff;
+}
+
+/* For all dashboard */
+.dashboard {
+  display: flex;
+}
+.dashboard-content {
+  margin: 0;
+  padding: 3% 5%;
+  width: 100%;
+  overflow-y: scroll;
+  height: 80vh;
 }
