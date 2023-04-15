@@ -33,7 +33,7 @@ import UserStats from "../../components/userStats/UserStats";
 import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
 import { deleteUser, getUsers } from "../../redux/features/auth/authSlice";
 import { shortenText } from "../profile/Profile";
-import "./Teams.scss";
+import "./Teams.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import {
