@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import image from "../../assets/investment.jpg";
 import "./OurInvestments.css";
 
-const OurInvestments = () => {
+const OurInvestments = (props) => {
   return (
     <div id="investment">
       <div className="investment-overlay">
@@ -21,13 +21,24 @@ const OurInvestments = () => {
           FIN Investments Inc. is also open for any possible business ventures.
         </p>
         <br />
-        <p>
-          Please log in to access our investment portfolio on a granular level.
-        </p>
+        {!props.isLoggedIn && (
+          <p>
+            Please log in to access our investment portfolio on a granular
+            level.
+          </p>
+        )}
         <br />
-        <Link to="/our-investments">
-          <button className="--btn --btn-primary --btn-lg">Login</button>
-        </Link>
+        {!props.isLoggedIn ? (
+          <Link to="/login/?path=investments">
+            <button className="--btn --btn-primary --btn-lg">Login</button>
+          </Link>
+        ) : (
+          <Link to="/our-investments">
+            <button className="--btn --btn-primary --btn-lg">
+              View Investments
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );
