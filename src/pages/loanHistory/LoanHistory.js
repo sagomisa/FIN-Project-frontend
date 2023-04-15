@@ -22,6 +22,7 @@ import {
 import { BiEdit } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import StatusSelectComponent from "../../components/statusSelectComponent/StatusSelectComponent";
+import { sendAutomatedEmail } from "../../redux/features/email/emailSlice";
 
 const loanFormState = {
   status: "",
@@ -171,6 +172,14 @@ const LoanHistory = () => {
     };
     console.log(loanData);
     console.log(">>>>>>>>>>>>>>>>clicked");
+    const emailData = {
+      subject: "Loan Approved - Fin Investments Inc.",
+      send_to: item.user?.email,
+      reply_to: "noreply@fininvestmentsinc",
+      template: "loanApproved",
+    };
+
+    await dispatch(sendAutomatedEmail(emailData));
     await dispatch(changeLoanStatus(loanData));
   };
 
@@ -215,13 +224,18 @@ const LoanHistory = () => {
                   {allLoans.map((item, index) => {
                     // console.log(`fetchdata>>>${JSON.stringify(item)}`);
                     return (
-                      <tr key={index} onClick={() => handleTableClick(item)}>
+                      <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{item.user?.name}</td>
                         <td>{item.user?.email}</td>
                         <td>{formatCurrency(item.amount)}</td>
                         <td>{formatDate(item.createdAt)}</td>
-                        <td>{item.status}</td>
+                        <td
+                          onClick={() => handleTableClick(item)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {item.status}
+                        </td>
                         <td>
                           <StatusSelectComponent />
                         </td>
