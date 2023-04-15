@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import profileImg from "../../assets/logo.png";
 import Card from "../../components/card/Card";
@@ -26,7 +27,20 @@ export const shortenText = (text, n) => {
 };
 
 const Profile = () => {
-  useRedirectLoggedOutUser("/login");
+  useRedirectLoggedOutUser("/login/?path=profile");
+
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const path = searchParams.get("path");
+
+  useEffect(() => {
+    if (path === "null") {
+      navigate("/profile");
+    } else if (path) {
+      navigate("/" + path);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const dispatch = useDispatch();
 
   const { isLoading, isLoggedIn, isSuccess, message, user } = useSelector(

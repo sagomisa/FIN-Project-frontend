@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEvents } from "../../redux/features/event/eventSlice";
 
-const EventComponent = () => {
+const EventComponent = (props) => {
   const { events } = useSelector((state) => state.event);
   const dispatch = useDispatch();
 
@@ -89,9 +89,18 @@ const EventComponent = () => {
               .map((event) => {
                 return (
                   <div className="event">
-                    <Link to={"/events"}>
+                    {!props.isLoggedIn ? (
+                      <Link to="/login">
+                        <h3>{event.title}</h3>
+                      </Link>
+                    ) : (
+                      <Link to={"/events"}>
+                        <h3>{event.title}</h3>
+                      </Link>
+                    )}
+                    {/* <Link to={"/events"}>
                       <h3>{event.title}</h3>
-                    </Link>
+                    </Link> */}
                     <div className="">
                       <div className="--flex-start">
                         <AiFillCalendar size={20} />

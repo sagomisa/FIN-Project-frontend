@@ -1,8 +1,10 @@
 import React from "react";
 import GalleryComponent from "../../components/galleryComponent/GalleryComponent";
 import Sidebar from "../../components/sidebar/Sidebar";
+import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
 
 const Gallery = () => {
+  useRedirectLoggedOutUser("/login/?path=gallery");
   return (
     <div className="dashboard">
       <Sidebar />
