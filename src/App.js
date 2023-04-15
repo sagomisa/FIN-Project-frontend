@@ -250,9 +250,7 @@ function App() {
             path="/events"
             element={
               <Layout>
-                <VerifiedOnlyLink>
-                  <Events />
-                </VerifiedOnlyLink>
+                <Events />
               </Layout>
             }
           />
