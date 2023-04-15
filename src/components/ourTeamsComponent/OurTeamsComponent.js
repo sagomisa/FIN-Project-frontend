@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./OurTeamsComponent.css";
 
-const OurTeamsComponent = () => {
+const OurTeamsComponent = (props) => {
   return (
     <div id="teams">
       <div className="teams-overlay">
@@ -21,11 +21,17 @@ const OurTeamsComponent = () => {
           opportunities for our financial as well as social wellbeing.
         </p>
         <br />
-        <p>Please log in to access our team.</p>
+        {!props.isLoggedIn && <p>Please log in to access our team.</p>}
         <br />
-        <Link to="/teams">
-          <button className="--btn --btn-primary --btn-lg">Login</button>
-        </Link>
+        {!props.isLoggedIn ? (
+          <Link to="/login/?path=teams">
+            <button className="--btn --btn-primary --btn-lg">Login</button>
+          </Link>
+        ) : (
+          <Link to="/teams">
+            <button className="--btn --btn-primary --btn-lg">View Teams</button>
+          </Link>
+        )}
       </div>
     </div>
   );
