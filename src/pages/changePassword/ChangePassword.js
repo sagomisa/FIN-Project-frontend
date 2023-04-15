@@ -31,7 +31,7 @@ const initialState = {
 };
 
 const ChangePassword = () => {
-  useRedirectLoggedOutUser("/login");
+  useRedirectLoggedOutUser("/login/?path=changePassword");
   const [formData, setFormData] = useState(initialState);
   const { oldPassword, password, password2 } = formData;
 
