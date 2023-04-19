@@ -1,28 +1,3 @@
-// import React from "react";
-// import { useSelector } from "react-redux";
-// import Sidebar from "../../components/sidebar/Sidebar";
-// import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
-
-// const Teams = () => {
-//   useRedirectLoggedOutUser("/login/?path=teams");
-
-//   const { isLoading, isLoggedIn, isSuccess, message, user } = useSelector(
-//     (state) => state.auth
-//   );
-
-//   return (
-//     <div className="dashboard">
-//       <Sidebar />
-//       <div className="dashboard-content">
-//         <h1>Welcome to Teams Page!</h1>
-
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Teams;
-
 import React, { useEffect, useState } from "react";
 import { FaPlus, FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,6 +18,7 @@ import {
 import ReactPaginate from "react-paginate";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { useNavigate } from "react-router-dom";
+import { AdminOnlyLink } from "../../components/protect/hiddenLink";
 
 const Teams = () => {
   useRedirectLoggedOutUser("/login/?path=teams");
@@ -159,15 +135,17 @@ const Teams = () => {
                           <span style={{ fontWeight: "bold" }}>Email:</span>{" "}
                           {email}
                         </tr>
-                        <tr>
-                          <span>
-                            <FaTrashAlt
-                              size={20}
-                              color="red"
-                              onClick={() => confirmDelete(_id)}
-                            />
-                          </span>
-                        </tr>
+                        <AdminOnlyLink>
+                          <tr>
+                            <span>
+                              <FaTrashAlt
+                                size={20}
+                                color="red"
+                                onClick={() => confirmDelete(_id)}
+                              />
+                            </span>
+                          </tr>
+                        </AdminOnlyLink>
                       </tbody>
                     </table>
                   );
