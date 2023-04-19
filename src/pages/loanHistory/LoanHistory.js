@@ -175,7 +175,7 @@ const LoanHistory = (props) => {
                             />
                           </span>
                         </td>
-                        <td>{_id}</td>
+                        {/* <td>{_id}</td> */}
                       </tr>
                     );
                   })}

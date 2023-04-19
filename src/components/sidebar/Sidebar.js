@@ -8,7 +8,6 @@ function Sidebar() {
       <div className="sidebar">
         <div className="sidebarWrapper">
           <div className="sidebarMenu">
-            
             <ul className="sidebarList">
               <NavLink
                 to="/profile"
@@ -37,7 +36,7 @@ function Sidebar() {
                   color: isActive ? "#f48634" : "var(--color-dark)",
                 })}
               >
-                Loan
+                Loan Application
               </NavLink>
               <AdminOnlyLink>
                 <NavLink

@@ -51,14 +51,19 @@ const StatusSelectComponent = ({ _id, email, amount, name }) => {
           <option value="Rejected">Rejected</option>
           <option value="Cancelled">Cancelled</option>
         </select>
-        <button className="--btn --btn-primary">
-          <FaCheck size={10} />
-        </button>
         <textarea
           value={remarks}
           onChange={(e) => setRemarks(e.target.value)}
-          style={{ display: loanStatus === "Rejected" ? "block" : "none" }}
+          placeholder="Please enter the rejection reason"
+          style={{
+            display: loanStatus === "Rejected" ? "block" : "none",
+            marginRight: "2%",
+            padding: "2%",
+          }}
         ></textarea>
+        <button className="--btn --btn-primary">
+          <FaCheck size={10} />
+        </button>
       </form>
     </div>
   );
