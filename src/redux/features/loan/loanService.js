@@ -33,6 +33,7 @@ const deleteLoan = async (id) => {
 // Get update status
 const changeLoanStatus = async (loanData) => {
   const response = await axios.patch(API_URL + "changeLoanStatus", loanData);
+  console.log(`response>>>>${response.data}`);
   return response.data;
 };
 
