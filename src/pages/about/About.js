@@ -1,8 +1,5 @@
 import React from "react";
 import "./About.css";
-import TopSection from "../../components/top_section/TopSection";
-import HeroCarousel from "../../components/hero_carousel/HeroCarousel.js";
-import { RiTeamFill } from "react-icons/ri";
 import { FaBookReader } from "react-icons/fa";
 import ServicesComponent from "../../components/servicesComponent/ServicesComponent";
 
@@ -13,10 +10,9 @@ const About = (props) => {
       <h1>About Us</h1>
       <div className="about-container">
         <div className="about-icons">
-          
           <FaBookReader size="80%" color="#2957A4" />
-        </div> 
-        <div id="about-contents"> 
+        </div>
+        <div id="about-contents">
           <p>
             We pride ourselves on being a unique company where friends and funds
             incorporate together forming FIN Investments Inc.

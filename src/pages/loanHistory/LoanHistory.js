@@ -27,11 +27,12 @@ import { sendAutomatedEmail } from "../../redux/features/email/emailSlice";
 const loanFormState = {
   status: "",
 };
-const LoanHistory = () => {
+const LoanHistory = (props) => {
   useRedirectLoggedOutUser("/login/?path=applications");
 
-  const [openPopup, setOpenPopup] = useState(false);
   const [loanForm, setLoanForm] = useState(loanFormState);
+  const [status, setStatus] = React.useState("Pending");
+  const [selectedStatus, setSelectedStatus] = useState({ status: "pending" });
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState("");
@@ -106,83 +107,6 @@ const LoanHistory = () => {
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = filteredUsers.slice(itemOffset, endOffset);
 
-  const handleLoanFormChange = (e) => {
-    setLoanForm({
-      ...loanForm,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const handleLoanFormSubmit = (e) => {
-    e.preventDefault();
-
-    dispatch(updateLoan(loanFormState));
-
-    // Close the popup
-    setOpenPopup(false);
-  };
-
-  React.useEffect(() => {
-    // Reset the form
-    setLoanForm(loanFormState);
-  }, [openPopup]);
-
-  const eventFormPopup = () => {
-    return (
-      <div className="eventFormPopup">
-        <div className="eventFormPopup__content">
-          <div className="eventFormPopup__header">
-            <h2>Edit Loan</h2>
-            <span
-              className="eventFormPopup__closeBtn"
-              onClick={() => setOpenPopup(false)}
-            >
-              <AiOutlineCloseCircle size={20} />
-            </span>
-          </div>
-          <div className="eventFormPopup__body">
-            <form onSubmit={handleLoanFormSubmit}>
-              {/* <div className="form-group">
-                <label htmlFor="title">Status</label>
-                <input
-                  type="text"
-                  name="title"
-                  id="title"
-                  value={loanForm.status}
-                  onChange={handleLoanFormChange}
-                />
-              </div> */}
-              <StatusSelectComponent />
-              <div className="form-group">
-                <button className="form-button">Done</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const handleTableClick = async (item) => {
-    console.log("item ----->>>>", item);
-    const loanData = {
-      userId: item.user?._id,
-      loanId: item._id,
-      loanAmount: item.amount,
-      loanStatus: "Approved", //TODO: send status from selectedDropdown
-    };
-    console.log(loanData);
-    console.log(">>>>>>>>>>>>>>>>clicked");
-    const emailData = {
-      subject: "Loan Approved - Fin Investments Inc.",
-      send_to: item.user?.email,
-      reply_to: "noreply@fininvestmentsinc",
-      template: "loanApproved",
-    };
-
-    await dispatch(sendAutomatedEmail(emailData));
-    await dispatch(changeLoanStatus(loanData));
-  };
-
   return (
     <section>
       <div className="users">
@@ -203,8 +127,8 @@ const LoanHistory = () => {
               </span>
             </div>
             {/* Table */}
-            {!isLoading && users.length === 0 ? (
-              <p>No user found...</p>
+            {!isLoading && loans.length === 0 ? (
+              <p>No loan found...</p>
             ) : (
               <table>
                 <thead>
@@ -217,27 +141,29 @@ const LoanHistory = () => {
                     <th>Status</th>
                     <th>Change status</th>
                     <th>Action</th>
-                    {/* <th>ID</th> */}
                   </tr>
                 </thead>
                 <tbody>
                   {allLoans.map((item, index) => {
+                    const { _id, status } = item;
                     // console.log(`fetchdata>>>${JSON.stringify(item)}`);
                     return (
-                      <tr key={index}>
+                      <tr key={_id}>
                         <td>{index + 1}</td>
                         <td>{item.user?.name}</td>
                         <td>{item.user?.email}</td>
                         <td>{formatCurrency(item.amount)}</td>
                         <td>{formatDate(item.createdAt)}</td>
-                        <td
-                          onClick={() => handleTableClick(item)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          {item.status}
-                        </td>
+                        <td>{item.status}</td>
                         <td>
-                          <StatusSelectComponent />
+                          <span>
+                            <StatusSelectComponent
+                              _id={_id}
+                              email={item.user?.email}
+                              amount={item.amount}
+                              name={item.user?.name}
+                            />
+                          </span>
                         </td>
 
                         <td>
@@ -248,16 +174,8 @@ const LoanHistory = () => {
                               onClick={() => confirmDelete(item._id)}
                             />
                           </span>
-                          <span>
-                            <BiEdit
-                              size={20}
-                              color="red"
-                              style={{ marginLeft: "10%" }}
-                              onClick={() => setOpenPopup(true)}
-                            />
-                          </span>
                         </td>
-                        {/* <td>{item._id}</td> */}
+                        {/* <td>{_id}</td> */}
                       </tr>
                     );
                   })}
@@ -266,7 +184,6 @@ const LoanHistory = () => {
             )}
             <hr />
           </div>
-          {openPopup && eventFormPopup()}
         </div>
       </div>
     </section>

@@ -14,14 +14,6 @@ const HeaderHero = () => {
         <div>
           <h2>Together Towards Eminence</h2>
         </div>
-        <div id="headerBtn">
-          {/* <Link to="./about">
-            <button className="button --btn-lg --btn-primary">
-              Learn more about us
-              <BsFillArrowRightCircleFill />
-            </button>
-          </Link> */}
-        </div>
       </div>
       <div id="logo">
         <img src={logo} alt="FIN logo" />

@@ -52,6 +52,7 @@ export const changeLoanStatus = createAsyncThunk(
   "loan/changeLoanStatus",
   async (loanData, thunkAPI) => {
     try {
+      console.log(`loandata2>>${loanData}`);
       return await loanService.changeLoanStatus(loanData);
     } catch (error) {
       const message =
@@ -145,8 +146,9 @@ const loanSlice = createSlice({
     [changeLoanStatus.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.message = action.payload;
-      toast.success(action.payload);
+      state.message = action.payload.message;
+      console.log(`action.payload>>>>${JSON.stringify(action.payload)}`);
+      toast.success(action.payload.message);
     },
     [changeLoanStatus.rejected]: (state, action) => {
       state.isLoading = false;

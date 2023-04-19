@@ -16,7 +16,7 @@ const ChangeRole = ({ _id, email }) => {
   //Change user role
   const changeRole = async (e) => {
     e.preventDefault();
-
+    
     if (!userRole) {
       toast.error("Please select a role");
     }
