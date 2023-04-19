@@ -43,7 +43,7 @@ const Reset = () => {
       return toast.error("Password do not match");
     }
     if (password.length < 6) {
-      return toast.error("Password must be up to 6 characters");
+      return toast.error("Password must be at lest 6 characters");
     }
     if (!checkUcaseLcase(password)) {
       return toast.error(
