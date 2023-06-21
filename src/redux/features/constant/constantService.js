@@ -22,7 +22,7 @@ const updateConstantValue = async (key, value) => {
     key,
     value,
   });
-  return response.data;
+  return response;
 };
 
 const constantService = {

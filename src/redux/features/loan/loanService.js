@@ -37,12 +37,26 @@ const changeLoanStatus = async (loanData) => {
   return response.data;
 };
 
+// Get user loan
+const getUserLoan = async () => {
+  const response = await axios.get(API_URL + "getUserLoan");
+  return response.data;
+};
+
+// Cancel loan for user
+const cancelLoan = async (id) => {
+  const response = await axios.patch(API_URL + "cancelLoan/"+id);
+  return response.data;
+};
+
 const loanService = {
   getAllLoans,
   createLoan,
   deleteLoan,
   updateLoan,
   changeLoanStatus,
+  getUserLoan,
+  cancelLoan
 };
 
 export default loanService;
