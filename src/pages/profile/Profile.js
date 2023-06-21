@@ -129,7 +129,8 @@ const Profile = () => {
 
   return (
     <>
-      {isLoading && <Loader />}
+      {isLoading ? <Loader /> :
+      <>
       {!profile.isVerified && <Notification />}
       <div className="dashboard">
         <Sidebar />
@@ -211,6 +212,8 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      </>}
+      
     </>
   );
 };

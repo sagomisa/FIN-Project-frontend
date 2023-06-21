@@ -17,23 +17,22 @@ const StatusSelectComponent = ({ _id, email, amount, name }) => {
   //Change user role
   const changeStatus = async (e) => {
     e.preventDefault();
-    console.log(`clickkkkkkkkk`);
     if (!loanStatus) {
       toast.error("Please select a status");
+    }else{
+      const loanData = {
+        status: loanStatus,
+        id: _id,
+        amount: amount,
+        remarks: remarks,
+        name: name,
+        email: email,
+      };
+  
+      console.log(`loandata>>>${JSON.stringify(loanData)}`);
+      await dispatch(changeLoanStatus(loanData));
+      await dispatch(getAllLoans());
     }
-
-    const loanData = {
-      status: loanStatus,
-      id: _id,
-      amount: amount,
-      remarks: remarks,
-      name: name,
-      email: email,
-    };
-
-    console.log(`loandata>>>${JSON.stringify(loanData)}`);
-    await dispatch(changeLoanStatus(loanData));
-    await dispatch(getAllLoans());
   };
   return (
     <div className="sort">
@@ -46,17 +45,18 @@ const StatusSelectComponent = ({ _id, email, amount, name }) => {
           onChange={(e) => setLoanStatus(e.target.value)}
         >
           <option value="">-- select --</option>
-          <option value="Approved">Approved</option>
-          <option value="Pending">Pending</option>
-          <option value="Rejected">Rejected</option>
-          <option value="Cancelled">Cancelled</option>
+          <option value="approved">approved</option>
+          <option value="pending">pending</option>
+          <option value="rejected">rejected</option>
+          <option value="cancelled">cancelled</option>
+          <option value="disbursed">disbursed</option>
         </select>
         <textarea
           value={remarks}
           onChange={(e) => setRemarks(e.target.value)}
           placeholder="Please enter the rejection reason"
           style={{
-            display: loanStatus === "Rejected" ? "block" : "none",
+            display: loanStatus === "rejected" ? "block" : "none",
             marginRight: "2%",
             padding: "2%",
           }}

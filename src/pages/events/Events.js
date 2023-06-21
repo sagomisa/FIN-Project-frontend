@@ -59,10 +59,7 @@ const Events = () => {
 
   const mergeDateAndTime = (obj) => {
     const dateTimeString = obj.date + "T" + obj.time + ":00";
-    const timezoneOffset = new Date().getTimezoneOffset();
-    const mergedDate = moment(dateTimeString)
-      .utcOffset(timezoneOffset, true)
-      .toDate();
+    const mergedDate = moment.tz(dateTimeString, 'Canada/Eastern').toDate();
 
     return {
       ...obj,

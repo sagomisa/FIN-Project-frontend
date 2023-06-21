@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   isSuccess: false,
+  userLoan: null
 };
 
 export const getAllLoans = createAsyncThunk("loan/getAllLoans", async () => {
@@ -16,9 +17,18 @@ export const getAllLoans = createAsyncThunk("loan/getAllLoans", async () => {
 
 export const createLoan = createAsyncThunk(
   "loan/createLoan",
-  async (loanData) => {
-    const response = await loanService.createLoan(loanData);
-    return response;
+  async (loanData, thunkAPI) => {
+    try{
+      return await loanService.createLoan(loanData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
   }
 );
 
@@ -42,7 +52,6 @@ export const updateLoan = createAsyncThunk(
 
 //Delete a loan
 export const deleteLoan = createAsyncThunk("loan/deleteLoan", async (id) => {
-  console.log(`id2>>>>>${id}`);
   const response = await loanService.deleteLoan(id);
   return response;
 });
@@ -65,6 +74,18 @@ export const changeLoanStatus = createAsyncThunk(
     }
   }
 );
+
+// get current user loan
+export const getUserLoan = createAsyncThunk("loan/getUserLoan", async () => {
+  const response = await loanService.getUserLoan();
+  return response;
+});
+
+// cancel user loan
+export const cancelLoan = createAsyncThunk("loan/cancelLoan", async (id) => {
+  const response = await loanService.cancelLoan(id);
+  return response;
+});
 
 const loanSlice = createSlice({
   name: "loan",
@@ -96,13 +117,14 @@ const loanSlice = createSlice({
     [createLoan.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.loans.push(action.payload);
+      state.userLoan = action.payload;
       toast.success("Loan created successfully");
     },
-    [createLoan.rejected]: (state) => {
+    [createLoan.rejected]: (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      toast.error("Error creating loan");
+      state.message = action.payload;
+      toast.error(action.payload);
     },
     // Update loan
     [updateLoan.pending]: (state) => {
@@ -155,6 +177,33 @@ const loanSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
       toast.error(action.payload);
+    },
+    [getUserLoan.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getUserLoan.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.userLoan = action.payload;
+    },
+    [getUserLoan.rejected]: (state) => {
+      state.isLoading = false;
+      state.isError = true;
+      toast.error("Error fetching user loan");
+    },
+    [cancelLoan.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [cancelLoan.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.userLoan = action.payload;
+      toast.success("Loan cancelled successfully")
+    },
+    [cancelLoan.rejected]: (state) => {
+      state.isLoading = false;
+      state.isError = true;
+      toast.error("Error canceling the loan");
     },
   },
 });

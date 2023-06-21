@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "../../components/loader/Loader";
 import Search from "../../components/search/Search";
 import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
-import { getUsers } from "../../redux/features/auth/authSlice";
 import "./LoanHistory.scss";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import {
@@ -14,36 +13,24 @@ import {
 import { confirmAlert } from "react-confirm-alert";
 import Sidebar from "../../components/sidebar/Sidebar";
 import {
-  changeLoanStatus,
   deleteLoan,
   getAllLoans,
-  updateLoan,
 } from "../../redux/features/loan/loanSlice";
-import { BiEdit } from "react-icons/bi";
-import { AiOutlineCloseCircle } from "react-icons/ai";
 import StatusSelectComponent from "../../components/statusSelectComponent/StatusSelectComponent";
-import { sendAutomatedEmail } from "../../redux/features/email/emailSlice";
+import DisplayLoanAdmin from "../loan/DisplayLoanAdmin";
 
-const loanFormState = {
-  status: "",
-};
 const LoanHistory = (props) => {
   useRedirectLoggedOutUser("/login/?path=applications");
 
-  const [loanForm, setLoanForm] = useState(loanFormState);
-  const [status, setStatus] = React.useState("Pending");
-  const [selectedStatus, setSelectedStatus] = useState({ status: "pending" });
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState("");
+  const [selectedLoan, setSelectedLoan] = useState(null);
 
   const { users, isLoading } = useSelector((state) => state.auth);
   const filteredUsers = useSelector(selectUsers);
   const { loans } = useSelector((state) => state.loan);
 
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getAllLoans());
@@ -53,16 +40,6 @@ const LoanHistory = (props) => {
     dispatch(FILTER_USERS({ users, search }));
   }, [dispatch, users, search]);
 
-  const getAllLoansWithUser = () => {
-    const allLoans = loans.map((loan) => {
-      const user = users.find((user) => user._id === loan.user);
-      return { ...loan, user };
-    });
-
-    return allLoans;
-  };
-
-  const allLoans = getAllLoansWithUser();
 
   const removeLoan = async (id) => {
     await dispatch(deleteLoan(id));
@@ -140,11 +117,11 @@ const LoanHistory = (props) => {
                     <th>Date</th>
                     <th>Status</th>
                     <th>Change status</th>
-                    <th>Action</th>
+                    <td>Action</td>
                   </tr>
                 </thead>
                 <tbody>
-                  {allLoans.map((item, index) => {
+                  {loans.map((item, index) => {
                     const { _id, status } = item;
                     // console.log(`fetchdata>>>${JSON.stringify(item)}`);
                     return (
@@ -163,10 +140,11 @@ const LoanHistory = (props) => {
                               amount={item.amount}
                               name={item.user?.name}
                             />
-                          </span>
+                          </span>                         
                         </td>
-
                         <td>
+                          <button className="--btn --btn-primary" onClick={() => setSelectedLoan(item)}>View</button>
+                          {process.env.REACT_APP_ENVIRONMENT == "development" && 
                           <span>
                             <FaTrashAlt
                               size={20}
@@ -174,8 +152,8 @@ const LoanHistory = (props) => {
                               onClick={() => confirmDelete(item._id)}
                             />
                           </span>
+                          }
                         </td>
-                        {/* <td>{_id}</td> */}
                       </tr>
                     );
                   })}
@@ -186,6 +164,7 @@ const LoanHistory = (props) => {
           </div>
         </div>
       </div>
+      <DisplayLoanAdmin selectedLoan={selectedLoan} setSelectedLoan={setSelectedLoan}/>
     </section>
   );
 };
