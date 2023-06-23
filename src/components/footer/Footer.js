@@ -1,6 +1,7 @@
 import React from "react";
 import "./Footer.css";
 import logo from "../../assets/logo.png";
+import links from "../../constants/links";
 
 function Footer() {
   return (
@@ -28,7 +29,9 @@ function Footer() {
           <h2>Contact Us</h2>
 
           <div className="sm_icons">
-            <i className="fa-brands fa-facebook"></i>
+            <a className="clear_style fb_link" href={links.facebook}>
+              <i className="fa-brands fa-facebook"></i>
+            </a>
           </div>
         </div>
       </div>
