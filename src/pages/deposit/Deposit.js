@@ -12,11 +12,11 @@ import { useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { shortenText } from "../profile/Profile";
 import { getUsers } from "../../redux/features/auth/authSlice";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { BsCheck2Square } from "react-icons/bs";
 import ChangeStatus from "../../components/changeStatus/ChangeStatus";
 import { AdminOnlyLink } from "../../components/protect/hiddenLink";
+import { getAllDeposits } from "../../redux/features/deposit/depositSlice";
 
 const Deposit = () => {
   useRedirectLoggedOutUser("/login/?path=deposit");
@@ -36,6 +36,7 @@ const Deposit = () => {
 
   useEffect(() => {
     dispatch(getUsers());
+    dispatch(getAllDeposits())
   }, [dispatch]);
 
   useEffect(() => {
@@ -59,6 +60,11 @@ const Deposit = () => {
     setItemOffset(newOffset);
   };
 
+  const formatDate = (date) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleDateString();
+  };
+
   //End Pagination
   return (
     <div className="deposit">
@@ -79,8 +85,8 @@ const Deposit = () => {
             </span>
           </div>
           {/* Table */}
-          {!isLoading && users.length === 0 ? (
-            <p>No user found...</p>
+          {!isLoading && deposits.length === 0 ? (
+            <p>No deposit found...</p>
           ) : (
             <table>
               <thead>
@@ -88,39 +94,30 @@ const Deposit = () => {
                   <th>s/n</th>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Date</th>
+                  <th>Deposit For</th>
                   <th>Amount</th>
+                  <th>Deposited Date</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {currentItems.map((user, index, deposit) => {
-                  const { _id, name, email, role } = user;
-                  const { status } = deposit;
+                {deposits.map(({_id, user, amount, status, deposit_for, deposited_date}, index) => {
+                  const { name, email } = user;
 
                   return (
-                    <tr key={_id}>
+                    <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{shortenText(name, 8)}</td>
                       <td>{email}</td>
                       <td>
-                        <DatePicker
-                          selected={selectedDates[_id]}
-                          placeholderText="Select a date"
-                          onChange={(date) => {
-                            setSelectedDates((prevState) => ({
-                              ...prevState,
-                              [_id]: date,
-                            }));
-                          }}
-                          dateFormat="dd/MM/yyyy"
-                        />
+                        {deposit_for}
                       </td>
-                      <td>250</td>
-                      <td>Unpaid</td>
+                      <td>{amount}</td>
+                      <td>{deposited_date && formatDate(deposited_date)}</td>
+                      <td>{status}</td>
                       <td>
-                        <ChangeStatus _id={_id} email={email} status={status} />
+                        <ChangeStatus _id={_id} />
                       </td>
                     </tr>
                   );
