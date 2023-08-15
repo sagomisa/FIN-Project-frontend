@@ -23,7 +23,7 @@ const updateDeposit = async (depositData) => {
 
 // Upgrade Deposit
 const upgradeDepositStatus = async (depositData) => {
-  const response = await axios.post(
+  const response = await axios.patch(
     API_URL + "upgradeDepositStatus",
     depositData
   );

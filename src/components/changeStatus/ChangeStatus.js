@@ -7,7 +7,7 @@ import {
 import { BsCheck2Square } from "react-icons/bs";
 import { toast } from "react-toastify";
 
-const ChangeStatus = () => {
+const ChangeStatus = ({_id}) => {
   const [status, setStatus] = useState("");
   const dispatch = useDispatch();
 
@@ -23,10 +23,10 @@ const ChangeStatus = () => {
 
     const depositData = {
       status: status,
-      id: user._id,
+      id: _id,
     };
 
-    // await dispatch(upgradeDepositStatus(depositData));
+    await dispatch(upgradeDepositStatus(depositData));
     await dispatch(getAllDeposits());
   };
   return (
