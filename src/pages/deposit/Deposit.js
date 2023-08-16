@@ -111,7 +111,7 @@ const Deposit = () => {
                       <td>{shortenText(name, 8)}</td>
                       <td>{email}</td>
                       <td>
-                        {deposit_for}
+                        {deposit_for && formatDate(deposit_for)}
                       </td>
                       <td>{amount}</td>
                       <td>{deposited_date && formatDate(deposited_date)}</td>

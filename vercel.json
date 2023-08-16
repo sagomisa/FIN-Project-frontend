@@ -1,0 +1,8 @@
+{
+    "crons": [
+      {
+        "path": "/api/monthlyDeposit",
+        "schedule": "01 00 01 * *"
+      }
+    ]
+  }
