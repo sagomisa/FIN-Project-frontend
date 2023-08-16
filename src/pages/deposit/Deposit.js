@@ -17,6 +17,7 @@ import { BsCheck2Square } from "react-icons/bs";
 import ChangeStatus from "../../components/changeStatus/ChangeStatus";
 import { AdminOnlyLink } from "../../components/protect/hiddenLink";
 import { getAllDeposits } from "../../redux/features/deposit/depositSlice";
+import { current } from "@reduxjs/toolkit";
 
 const Deposit = () => {
   useRedirectLoggedOutUser("/login/?path=deposit");
@@ -25,17 +26,14 @@ const Deposit = () => {
   const navigate = useNavigate();
 
   const [search, setSearch] = useState("");
-  const [selectedDates, setSelectedDates] = useState([{}]);
 
-  const { users, isLoading, isLoggedIn, isSuccess, message } = useSelector(
+  const { users, isLoading } = useSelector(
     (state) => state.auth
   );
 
   const { deposits } = useSelector((state) => state.deposit);
-  const filteredUsers = useSelector(selectUsers);
 
   useEffect(() => {
-    dispatch(getUsers());
     dispatch(getAllDeposits())
   }, [dispatch]);
 
@@ -43,20 +41,18 @@ const Deposit = () => {
     dispatch(FILTER_USERS({ users, search }));
   }, [dispatch, users, search]);
 
-  //Function for action button change
-  const handleBtnChange = () => {};
 
   // Begin Pagination
   const itemsPerPage = 7;
   const [itemOffset, setItemOffset] = useState(0);
 
   const endOffset = itemOffset + itemsPerPage;
-  const currentItems = filteredUsers.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = deposits.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(deposits.length / itemsPerPage);
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % filteredUsers.length;
+    const newOffset = (event.selected * itemsPerPage) % deposits.length;
     setItemOffset(newOffset);
   };
 
@@ -102,12 +98,12 @@ const Deposit = () => {
                 </tr>
               </thead>
               <tbody>
-                {deposits.map(({_id, user, amount, status, deposit_for, deposited_date}, index) => {
+                {currentItems.map(({_id, user, amount, status, deposit_for, deposited_date}, index) => {
                   const { name, email } = user;
 
                   return (
                     <tr key={index}>
-                      <td>{index + 1}</td>
+                      <td>{itemOffset + index + 1}</td>
                       <td>{shortenText(name, 8)}</td>
                       <td>{email}</td>
                       <td>
