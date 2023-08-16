@@ -31,11 +31,21 @@ const upgradeDepositStatus = async (depositData) => {
   return response.data.message;
 };
 
+// Initiate monthly Deposit
+const createMonthlyDeposit = async () => {
+  const response = await axios.post(
+    API_URL + "createMonthlyDeposit"
+  );
+
+  return response.data.message;
+};
+
 const depositService = {
   getAllDeposits,
   createDeposit,
   updateDeposit,
   upgradeDepositStatus,
+  createMonthlyDeposit
 };
 
 export default depositService;
