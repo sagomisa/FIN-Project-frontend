@@ -1,9 +1,9 @@
-import depositService from "../src/redux/features/deposit/depositService";
+import cronService from "../src/redux/features/cronService";
 
 export default function monthlyDeposit(request, response) {
   console.log('trigerring monhtly deposit creation')
   try {
-    depositService.createMonthlyDeposit().then(res => {
+    cronService.createMonthlyDeposit().then(res => {
       response.status(200).json({message: res});
     });
   } catch (error) {
