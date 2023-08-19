@@ -17,7 +17,6 @@ import { useNavigate } from "react-router-dom";
 import {
   register,
   RESET,
-  sendVerificationEmail,
 } from "../../redux/features/auth/authSlice";
 import Loader from "../../components/loader/Loader";
 
@@ -122,9 +121,7 @@ const Register = () => {
     };
     console.log(userData);
     await dispatch(register(userData));
-    //When user is registered, this action is fired (user will get an email)
-    await dispatch(sendVerificationEmail());
-    // navigate("/login");
+    navigate("/users");
   };
 
   return (
