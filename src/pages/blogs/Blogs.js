@@ -17,7 +17,8 @@ import BlogCard from "../../components/blogCard/BlogCard";
 
 const blogFormState = {
   title: "",
-  content: ""
+  content: "",
+  image: null
 };
 
 const Blogs = () => {
@@ -43,11 +44,23 @@ const Blogs = () => {
     });
   };
 
+  const handleImageChange = (e) => {
+    setBlogForm({
+      ...blogForm,
+      image: e.target.files[0],
+    });
+  };
+
   const handleBlogFormSubmit = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('title', blogForm.title);
+    formData.append('content', blogForm.content);
+    formData.append('image', blogForm.image);
+    formData.append('id', user._id)
 
-    dispatch(createBlog({id: user._id, ...blogForm})).then(res=>{
-      console.warn(res)
+    dispatch(createBlog(formData)).then(res=>{
+      // console.log(res)
     });
 
     // Close the popup
@@ -82,6 +95,16 @@ const Blogs = () => {
                   id="title"
                   value={blogForm.title}
                   onChange={handleBlogFormChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="title">Image</label>
+                <input
+                  type="file"
+                  name="image"
+                  id="image"
+                  accept="image/*" 
+                  onChange={handleImageChange}
                 />
               </div>
               <div className="form-group">

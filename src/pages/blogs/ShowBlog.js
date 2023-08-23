@@ -25,14 +25,13 @@ const ShowBlog = () => {
 
   return <div>{!blogToDisplay ? <Spinner /> : 
   <>
-  {console.log(blogToDisplay)}
     <div className="blog">
       <h2 className="blog-title">{blogToDisplay.title}</h2>
       <div className="blog-meta">
       <p className="blog-author"> {blogToDisplay.author.name}</p>
       <p className="blog-published-date">Published: {formatDate(blogToDisplay.createdAt)}</p>
       </div>
-      <img className="blog-image" src={SampleImage} alt={blogToDisplay.title} />
+      {blogToDisplay.imageURL && <img className="blog-image" src={blogToDisplay.imageURL } alt={blogToDisplay.title} /> }
       <div className="blog-content">{blogToDisplay.content}</div>
     </div>
   </>}</div>;

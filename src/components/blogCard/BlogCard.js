@@ -1,11 +1,9 @@
 import React from "react";
 import "./BlogCard.css";
-import { AiFillCalendar, AiOutlineFieldTime } from "react-icons/ai";
+import { AiFillCalendar, AiOutlineUser } from "react-icons/ai";
 import { FaTrashAlt } from "react-icons/fa";
-import {
-  deleteBlog,
-  getAllBlogs,
-} from "../../redux/features/blog/blogSlice";
+
+import { deleteBlog, getAllBlogs } from "../../redux/features/blog/blogSlice";
 import { confirmAlert } from "react-confirm-alert";
 import { useDispatch } from "react-redux";
 import { AdminOnlyLink } from "../protect/hiddenLink";
@@ -44,7 +42,6 @@ const BlogCard = ({ blog }) => {
     return newDate.toLocaleDateString();
   };
 
-
   return (
     <div className="blogsCard">
       <div className="blog">
@@ -64,16 +61,20 @@ const BlogCard = ({ blog }) => {
         </div>
         <div id="date-time">
           <div>
+            <AiOutlineUser size={20} />
+            <p>{blog.author.name}</p>
+          </div>
+          <div>
             <AiFillCalendar size={20} />
             <p>{formatDate(blog.createdAt)}</p>
           </div>
-          </div>
-        <div >
+        </div>
+        <div>
           <p className="content">{blog.content}</p>
         </div>
-      <Link  to={`/blog/${blog._id}`} className="blog-link">
-        <p>Show more</p>
-      </Link>
+        <Link to={`/blog/${blog._id}`} className="blog-link">
+          <p>Show more</p>
+        </Link>
       </div>
     </div>
   );
