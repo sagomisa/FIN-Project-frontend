@@ -36,6 +36,7 @@ import {
 } from "./redux/features/auth/authSlice";
 import UsefulLinks from "./pages/usefulLinks/UsefulLinks";
 import { VerifiedOnlyLink } from "./components/protect/hiddenLink";
+import ShowBlog from "./pages/blogs/ShowBlog";
 
 axios.defaults.withCredentials = true;
 
@@ -252,6 +253,13 @@ function App() {
               <Layout>
                 <Events />
               </Layout>
+            }
+          />
+
+          <Route
+            path="/blog/:id"
+            element={
+                <ShowBlog />
             }
           />
           {/* 404 Not Found */}
