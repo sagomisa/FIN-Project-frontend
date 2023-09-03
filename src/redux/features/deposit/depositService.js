@@ -41,12 +41,33 @@ const createMonthlyDeposit = async () => {
   return response.data.message;
 };
 
+// Get status
+const depositStatus = async () => {
+  const response = await axios.get(API_URL + "depositStatus");
+  return response.data;
+};
+
+// send deposit reminder for user
+const sendDepositReminderUser = async (depositData) => {
+  const response = await axios.post(API_URL + "depositReminderUser", depositData);
+  return response.data;
+};
+
+// send deposit reminder for alluser
+const sendDepositReminderAllUser = async () => {
+  const response = await axios.post(API_URL+"depositReminderAllUser");
+  return response.data;
+};
+
 const depositService = {
   getAllDeposits,
   createDeposit,
   updateDeposit,
   upgradeDepositStatus,
   // createMonthlyDeposit
+  depositStatus,
+  sendDepositReminderUser,
+  sendDepositReminderAllUser
 };
 
 export default depositService;

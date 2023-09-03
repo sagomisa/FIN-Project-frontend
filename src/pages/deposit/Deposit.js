@@ -6,18 +6,16 @@ import Search from "../../components/search/Search";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FILTER_USERS,
-  selectUsers,
 } from "../../redux/features/auth/filterSlice";
 import { useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { shortenText } from "../profile/Profile";
-import { getUsers } from "../../redux/features/auth/authSlice";
 import "react-datepicker/dist/react-datepicker.css";
-import { BsCheck2Square } from "react-icons/bs";
 import ChangeStatus from "../../components/changeStatus/ChangeStatus";
-import { AdminOnlyLink } from "../../components/protect/hiddenLink";
 import { getAllDeposits } from "../../redux/features/deposit/depositSlice";
-import { current } from "@reduxjs/toolkit";
+import { FaEnvelope } from "react-icons/fa";
+import DepositStats from "../../components/DepositStats/depositStats";
+import { sendDepositReminderAllUser } from "../../redux/features/deposit/depositStatusSlice";
 
 const Deposit = () => {
   useRedirectLoggedOutUser("/login/?path=deposit");
@@ -58,8 +56,12 @@ const Deposit = () => {
 
   const formatDate = (date) => {
     const newDate = new Date(date);
-    return newDate.toLocaleDateString();
+    return newDate.toLocaleString('default', { month: 'long', year: 'numeric' });;
   };
+
+  const sendDepositReminder = async () => {
+    await dispatch(sendDepositReminderAllUser())
+  }
 
   //End Pagination
   return (
@@ -68,6 +70,7 @@ const Deposit = () => {
       <Sidebar />
 
       <div className="deposit-list">
+        <DepositStats />
         <div className="table">
           <div className="--flex-between">
             <span>
@@ -94,30 +97,48 @@ const Deposit = () => {
                   <th>Amount</th>
                   <th>Deposited Date</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th>
+                    Action( &nbsp;
+                    {
+                      <button
+                        className="--btn --btn-secondary inline-form btn-remind-all"
+                        title="Remind all current month unpaid user"
+                        onClick={sendDepositReminder}
+                      >
+                        <FaEnvelope size={10} /> Remind All
+                      </button>
+                    }
+                    )
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {currentItems.map(({_id, user, amount, status, deposit_for, deposited_date}, index) => {
-                  const { name, email } = user;
+                {currentItems.map(
+                  (
+                    { _id, user, amount, status, deposit_for, deposited_date },
+                    index
+                  ) => {
+                    const { name, email } = user;
 
-                  return (
-                    <tr key={index}>
-                      <td>{itemOffset + index + 1}</td>
-                      <td>{shortenText(name, 8)}</td>
-                      <td>{email}</td>
-                      <td>
-                        {deposit_for && formatDate(deposit_for)}
-                      </td>
-                      <td>{amount}</td>
-                      <td>{deposited_date && formatDate(deposited_date)}</td>
-                      <td>{status}</td>
-                      <td>
-                        <ChangeStatus _id={_id} />
-                      </td>
-                    </tr>
-                  );
-                })}
+                    return (
+                      <tr key={index}>
+                        <td>{itemOffset + index + 1}</td>
+                        <td>{shortenText(name, 8)}</td>
+                        <td>{email}</td>
+                        <td>{deposit_for && formatDate(deposit_for)}</td>
+                        <td>{amount}</td>
+                        <td>
+                          {deposited_date &&
+                            new Date(deposited_date).toLocaleDateString()}
+                        </td>
+                        <td>{status}</td>
+                        <td>
+                          <ChangeStatus _id={_id} depositStatus={status} />
+                        </td>
+                      </tr>
+                    );
+                  }
+                )}
               </tbody>
             </table>
           )}
