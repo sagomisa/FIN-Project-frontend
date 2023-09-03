@@ -544,3 +544,7 @@ a:hover {
   overflow-y: scroll;
   height: 80vh;
 }
+
+.inline-form {
+  display: inline;
+}
