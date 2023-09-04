@@ -133,6 +133,9 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid gray;
 }
 
 .loan-display-table {
@@ -169,5 +172,4 @@
 
 #display-loan-admin-container button {
   float: right;
-  margin-top: 15px;
 }

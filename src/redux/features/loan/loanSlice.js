@@ -7,7 +7,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   isSuccess: false,
-  userLoan: null
+  userLoans: []
 };
 
 export const getAllLoans = createAsyncThunk("loan/getAllLoans", async () => {
@@ -117,7 +117,7 @@ const loanSlice = createSlice({
     [createLoan.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.userLoan = action.payload;
+      state.userLoans = [action.payload, ...state.userLoans];
       toast.success("Loan created successfully");
     },
     [createLoan.rejected]: (state, action) => {
@@ -184,7 +184,7 @@ const loanSlice = createSlice({
     [getUserLoan.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.userLoan = action.payload;
+      state.userLoans = action.payload;
     },
     [getUserLoan.rejected]: (state) => {
       state.isLoading = false;
@@ -197,7 +197,9 @@ const loanSlice = createSlice({
     [cancelLoan.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.userLoan = action.payload;
+      let loanToUpdate = state.userLoans.find(loan => loan._id === action.payload._id);
+      loanToUpdate.status = "cancelled"
+      // state.userLoans = action.payload;
       toast.success("Loan cancelled successfully")
     },
     [cancelLoan.rejected]: (state) => {
