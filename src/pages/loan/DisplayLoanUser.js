@@ -28,7 +28,7 @@ const DisplayLoanUser = ({ selectedLoan })=>{
 
   return (
     <div id="display-loan-admin-container">
-      <h2>Loan Detail</h2>
+      <h2>Loan {new Date(selectedLoan?.createdAt).toLocaleDateString()}</h2>
       <table className="loan-display-table">
         <tbody>
           <tr>
@@ -39,6 +39,12 @@ const DisplayLoanUser = ({ selectedLoan })=>{
             <td>Loan Status</td>
             <td>{selectedLoan?.status}</td>
           </tr>
+          {selectedLoan.status === "rejected" && (
+            <tr>
+              <td>Remarks</td>
+              <td>{selectedLoan?.remarks}</td>
+            </tr>
+          )}
           <tr>
             <td>Email</td>
             <td>{selectedLoan?.user.email}</td>
@@ -65,17 +71,21 @@ const DisplayLoanUser = ({ selectedLoan })=>{
                 new Date(selectedLoan?.disbursed_date).toLocaleString()}
             </td>
           </tr>
+          {["pending", "approved"].includes(selectedLoan.status) && (
+            <tr>
+              <td>Action</td>
+              <td>
+                <button
+                  className="--btn --btn-primary"
+                  onClick={() => confirmCancel(selectedLoan._id)}
+                >
+                  Cancel Loan
+                </button>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
-      {["pending", "approved"].includes(selectedLoan.status) && (
-        <button
-          id="cancel-loan-btn"
-          className="--btn --btn-primary"
-          onClick={() => confirmCancel(selectedLoan._id)}
-        >
-          Cancel Loan
-        </button>
-      )}
     </div>
   );
 }

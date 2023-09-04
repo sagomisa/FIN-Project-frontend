@@ -21,7 +21,7 @@ const Loan = () => {
   useRedirectLoggedOutUser("/login/?path=loan");
 
   const { user } = useSelector((state) => state.auth);
-  const { userLoan } = useSelector(
+  const { userLoans } = useSelector(
     (state) => state.loan
   );
   const dispatch = useDispatch();
@@ -178,92 +178,92 @@ const Loan = () => {
 
   return (
     <div className="dashboard">
-      
       <Sidebar />
       <div className="dashboard-content">
-        {userLoan ? 
-        <DisplayLoanUser selectedLoan={userLoan} />
-        :
         <>
-        <h1>Loan Application Form</h1>
-        <div className="loan-container">
-          <LoanAdminLink>
-
-          <div className="loan-total">
-            <label className="loan-label">
-              <h3 className="loan-label-title">Total Disbursement Amount</h3>
-              <div className="loan-label-content">
-                <input
-                  className="loan-input"
-                  type="text"
-                  disabled
-                  value={formatCurrency(totalDisbursementAmount)}
-                />
-                {user &&
-                  (user.role === "admin" || user.role === "loanAdmin") && (
-                    <button
-                      className="loan-edit-button"
-                      onClick={handleDisbursmentUpdate}
-                    >
-                      Edit
-                    </button>
-                  )}
+          <h1>Loan Application Form</h1>
+          <div className="loan-container">
+            <LoanAdminLink>
+              <div className="loan-total">
+                <label className="loan-label">
+                  <h3 className="loan-label-title">
+                    Total Disbursement Amount
+                  </h3>
+                  <div className="loan-label-content">
+                    <input
+                      className="loan-input"
+                      type="text"
+                      disabled
+                      value={formatCurrency(totalDisbursementAmount)}
+                    />
+                    {user &&
+                      (user.role === "admin" || user.role === "loanAdmin") && (
+                        <button
+                          className="loan-edit-button"
+                          onClick={handleDisbursmentUpdate}
+                        >
+                          Edit
+                        </button>
+                      )}
+                  </div>
+                </label>
               </div>
-            </label>
-          </div>
-          </LoanAdminLink>
+            </LoanAdminLink>
 
-          <div className="user-agreement-form">
-            <h3 className="user-agreement-form-title">User Agreement Form</h3>
-            <div className="user-agreement-form-content">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                tincidunt, nisl eget aliquam tincidunt, nisl nisl aliquam
-                tortor, eget aliquam nisl nisl eget nisl. Sed tincidunt, nisl
-                eget aliquam tincidunt, nisl nisl aliquam tortor, eget aliquam
-                nisl nisl eget nisl. Sed tincidunt, nisl eget aliquam tincidunt,
-              </p>
+            <div className="user-agreement-form">
+              <h3 className="user-agreement-form-title">User Agreement Form</h3>
+              <div className="user-agreement-form-content">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                  tincidunt, nisl eget aliquam tincidunt, nisl nisl aliquam
+                  tortor, eget aliquam nisl nisl eget nisl. Sed tincidunt, nisl
+                  eget aliquam tincidunt, nisl nisl aliquam tortor, eget aliquam
+                  nisl nisl eget nisl. Sed tincidunt, nisl eget aliquam
+                  tincidunt,
+                </p>
+              </div>
+              <div className="user-agreement-form-checkbox">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={isUserAgreementFormChecked}
+                    onChange={(e) =>
+                      setIsUserAgreementFormChecked(!isUserAgreementFormChecked)
+                    }
+                  />
+                  <span>I agree to the terms and conditions</span>
+                </label>
+              </div>
             </div>
-            <div className="user-agreement-form-checkbox">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={isUserAgreementFormChecked}
-                  onChange={(e) =>
-                    setIsUserAgreementFormChecked(!isUserAgreementFormChecked)
-                  }
-                />
-                <span>I agree to the terms and conditions</span>
-              </label>
-            </div>
-          </div>
 
-          {isUserAgreementFormChecked ? (
-            <form className="loan-form" onSubmit={handleSubmit2}>
-              <label className="loan-label">
-                <h3 className="loan-label-title">Loan Amount</h3>
-                <input
-                  className="loan-input"
-                  type="number"
-                  pattern="[0-9]*"
-                  value={loanAmount}
-                  onChange={(e) => setLoanAmount(e.target.value)}
-                  required
-                />
-              </label>
-              {loanAmountError && (
-                <p className="loan-error-message">{loanAmountError}</p>
-              )}
-              <button className="loan-submit-button" type="submit">
-                Submit
-              </button>
-            </form>
-          ) : (
-            <></>
-          )}
-        </div>
+            {isUserAgreementFormChecked ? (
+              <form className="loan-form" onSubmit={handleSubmit2}>
+                <label className="loan-label">
+                  <h3 className="loan-label-title">Loan Amount</h3>
+                  <input
+                    className="loan-input"
+                    type="number"
+                    pattern="[0-9]*"
+                    value={loanAmount}
+                    onChange={(e) => setLoanAmount(e.target.value)}
+                    required
+                  />
+                </label>
+                {loanAmountError && (
+                  <p className="loan-error-message">{loanAmountError}</p>
+                )}
+                <button className="loan-submit-button" type="submit">
+                  Submit
+                </button>
+              </form>
+            ) : (
+              <></>
+            )}
+          </div>
         </>
-}
+        {userLoans.map((userLoan) => (
+          <DisplayLoanUser selectedLoan={userLoan} />
+        ))}
       </div>
     </div>
   );
