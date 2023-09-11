@@ -1,38 +1,38 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
+import {
+  getAllGalleryImages
+} from "../../redux/features/galleryImage/galleryImageSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../loader/Loader";
 
 const GalleryComponent = () => {
-  const images = [
-    {
-      original: require("../../assets/image1.jpeg"),
-      thumbnail: require("../../assets/image1.jpeg"),
-    },
-    {
-      original: require("../../assets/image2.jpeg"),
-      thumbnail: require("../../assets/image2.jpeg"),
-    },
-    {
-      original: require("../../assets/image3.jpeg"),
-      thumbnail: require("../../assets/image3.jpeg"),
-    },
-    {
-      original: require("../../assets/image4.jpeg"),
-      thumbnail: require("../../assets/image4.jpeg"),
-    },
-    {
-      original: require("../../assets/image5.jpg"),
-      thumbnail: require("../../assets/image5.jpg"),
-    },
-    {
-      original: require("../../assets/image6.jpg"),
-      thumbnail: require("../../assets/image6.jpg"),
-    },
-  ];
+  const { galleryImages, isLoading } = useSelector((state) => state.galleryImage);
+
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(getAllGalleryImages());
+  }, [dispatch]);
+
+  const formatImages = () => {
+    return galleryImages.map((galleryImage) => ({
+      original: galleryImage.imageURL,
+      thumbnail: galleryImage.imageURL,
+    }));
+  };
 
   return (
     <div>
-      <ImageGallery items={images} />
+      {console.log(galleryImages)}
+      {isLoading ? (
+        <Loader />
+      ) : galleryImages.length > 0 ? (
+        <ImageGallery items={formatImages()} />
+      ) : (
+        <h3>No images to display</h3>
+      )}
     </div>
   );
 };

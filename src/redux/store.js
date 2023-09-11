@@ -7,6 +7,7 @@ import eventReducer from "../redux/features/event/eventSlice";
 import depositReducer from "../redux/features/deposit/depositSlice";
 import blogReducer from "../redux/features/blog/blogSlice";
 import depositStatusReducer from "../redux/features/deposit/depositStatusSlice";
+import galleryImageReducer from "./features/galleryImage/galleryImageSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     deposit: depositReducer,
     blog: blogReducer,
     depositStatus:  depositStatusReducer,
+    galleryImage: galleryImageReducer
   },
 });
