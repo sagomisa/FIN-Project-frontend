@@ -19,12 +19,12 @@ const Gallery = () => {
 
   const handleGalleryFormSubmit = (e) => {
     e.preventDefault();
-    console.log(formImage)
 
     const formData = new FormData();
     formData.append('image', formImage);
     formData.append('id', user._id)
     dispatch(createGalleryImage(formData)).then(res=>{
+      setFormImage(null);
       setOpenPopup(false);
     });
 
@@ -53,6 +53,7 @@ const Gallery = () => {
                   name="image"
                   id="image"
                   accept="image/*" 
+                  required
                   onChange={(e)=> setFormImage(e.target.files[0])}
                 />
               </div>
